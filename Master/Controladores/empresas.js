@@ -77,7 +77,7 @@ var controller = { //Inicio Del Controlador
                         if (area_existe){ 
                         return res.status(400).send('El Area Ya Existe.... Se Omitira El Área')}
                         if (!area_existe){
-                        empresa.idArea.push(area._id);
+                        //empresa.idArea.push(area._id);
                         centro.idArea.push(area._id);
                         area.save((err, areaStored) => {
                             if (err || !areaStored) {

@@ -13,8 +13,6 @@ var CentrosSchema = Schema({
     estatus: Boolean,
     timestamp: Date,
     idArea:  [{ type: Schema.ObjectId, ref: "Areas" }],
-    idDepartamento:  [{ type: Schema.ObjectId, ref: "Departamentos" }],
-    idEmpleados:  [{ type: Schema.ObjectId, ref: "Empleados" }],
     }, { versionKey: false });
 
 module.exports = mongoose.model('Centro', CentrosSchema);

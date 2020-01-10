@@ -14,9 +14,6 @@ var EmpresasSchema = Schema({
     estatus: Boolean,
     timestamp: Date,
     idCentro: [{ type: Schema.ObjectId, ref: "Centros" }],
-    idDepartamento: [{ type: Schema.ObjectId, ref: "Departamentos" }],
-    idArea: [{ type: Schema.ObjectId, ref: "Areas" }],
-    idEmpleado: [{ type: Schema.ObjectId, ref: "Empleados" }],
     }, { versionKey: false });
 
 module.exports = mongoose.model('Empresa', EmpresasSchema);

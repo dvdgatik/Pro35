@@ -1,5 +1,6 @@
 'Use Strict'
 var Departamento = require('../Modelos/departamentos');
+var Area = require('../Modelos/areas');
 var moment = require('moment');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -11,32 +12,49 @@ var momentz = require('moment-timezone');
 
 var controller = { //Inicio Del Controlador 
     guardar: async(req, res) => {//guardar area  
-     
-            var params = req.body;
-            var departamento = new Departamento();
-            let fecha = new Date();
-            let fechaMX = moment(fecha).tz("America/Mexico_City");
-            let depa = await Departamento.findOne({ 'nombre': params.nombre});
-            if (depa){ 
-            return res.status(400).send('El Departamento Ya Existe....')}
-            if (!depa){
-                departamento.nombre = params.nombre;
-
-                departamento.estatus = true;   
-                departamento.timestamp = fechaMX._d;    
-                departamento.save((err, departamentoStored) => {
-                if (err || !departamentoStored) {
-                    console.log(err);
-                    return res.status(404).send({});
-                }
-                res.status(200).send({
-                    _id: departamento._id,
-                    nombre: departamento.nombre,
-                })
-                
-              });
+        let idArea = req.params.idArea;
+        const departamento = new Departamento();
+        var params = req.body;
+        const area = new Area();
+        let fecha = new Date();
+        let fechaMX = moment(fecha).tz("America/Mexico_City");
+        let departamento_existe = await Departamento.findOne({ 'nombre': params.nombre});
+        if (departamento_existe){ 
+        
+        console.log(departamento_existe);
+        console.log(departamento_existe._id);
+        Area.find({_id: idArea}, (err, area) => {
+            
+        console.log(area);
+        var arrayDepartamento = area[0].idDepartamento;
+        console.log(area);
+        arrayDepartamento.push(departamento_existe._id); 
+        Area.findOneAndUpdate({_id: idArea}, {idDepartamento: arrayDepartamento}, (err, transferenciaUpdated) => {});
+        return res.status(400).send('El Departamento Ya Existe, Se Descartara Guardarlo Pero Se Vinculara Al Área De Trabajo Ó Centro....')});
         }
-     
+
+        if (!departamento_existe){
+        departamento.nombre = params.nombre;
+        departamento.estatus = true;   
+        departamento.timestamp = fechaMX._d;    
+      
+        let area_existe = await Area.findOne({_id: idArea});
+        if (!area_existe){ 
+        return res.status(400).send('No Existe Área De Trabajo....')}
+
+        if (area_existe){
+            Area.find({_id: idArea}, (err, centro) => {
+                var arrayDepartamento = centro[0].idDepartamento;
+                arrayDepartamento.push(departamento._id); 
+                Area.findOneAndUpdate({_id: idArea}, {idDepartamento: arrayDepartamento}, (err, transferenciaUpdated) => {});
+                departamento.save((err, areaStored) => {
+                    if (err || !areaStored) {}})
+                     return res.status(200).send({});
+                    });
+
+    }
+}
+
     }, //fin de guardar area
 
     listarDA: async(req, res) => {//listar areas activas  

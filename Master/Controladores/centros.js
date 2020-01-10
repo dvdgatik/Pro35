@@ -9,22 +9,24 @@ var momentz = require('moment-timezone');
 var controller = { //Inicio Del Controlador 
     guardar: async(req, res) => {//guardar centro  
             let idEmpresa = req.params.idEmpresa;
-            const emp = new Empresa();
+            const empresa = new Empresa();
             var params = req.body;
-            const cent = new Centro();
+            const centro = new Centro();
             let fecha = new Date();
             let fechaMX = moment(fecha).tz("America/Mexico_City");
-            let centro = await Centro.findOne({ 'nombre': params.nombre});
-            if (centro){ 
+            let centro_existe = await Centro.findOne({ 'nombre': params.nombre});
+            if (centro_existe){ 
+
+                
             return res.status(400).send('El Centro Ya Existe....')}
-            if (!centro){
-            cent.nombre = params.nombre;
-            cent.telefono = params.telefono;
-            cent.calle = params.calle;
-            cent.colonia = params.colonia;
-            cent.cp = params.cp;       
-            cent.estatus = true;   
-            cent.timestamp = fechaMX._d;    
+            if (!centro_existe){
+            centro.nombre = params.nombre;
+            centro.telefono = params.telefono;
+            centro.calle = params.calle;
+            centro.colonia = params.colonia;
+            centro.cp = params.cp;       
+            centro.estatus = true;   
+            centro.timestamp = fechaMX._d;    
           
             let empresa_existe = await Empresa.findOne({_id: idEmpresa});
             if (!empresa_existe){ 
@@ -33,9 +35,9 @@ var controller = { //Inicio Del Controlador
                 
                 Empresa.find({_id: idEmpresa}, (err, empresa) => {
                     var arrayCentro = empresa[0].idCentro;
-                    arrayCentro.push(cent._id); 
+                    arrayCentro.push(centro._id); 
                     Empresa.findOneAndUpdate({_id: idEmpresa}, {idCentro: arrayCentro}, (err, transferenciaUpdated) => {});
-                    cent.save((err, centroStored) => {
+                    centro.save((err, centroStored) => {
                         if (err || !centroStored) {}})
                          return res.status(200).send({});
                         });

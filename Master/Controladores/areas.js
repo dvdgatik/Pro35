@@ -1,5 +1,6 @@
 'Use Strict'
 var Area = require('../Modelos/areas');
+var Centro = require('../Modelos/centros');
 var moment = require('moment');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -7,34 +8,48 @@ var momentz = require('moment-timezone');
 
 var controller = { //Inicio Del Controlador 
     guardar: async(req, res) => {//guardar area  
-     
-            var params = req.body;
-            var area = new Area();
-            let fecha = new Date();
-            let fechaMX = moment(fecha).tz("America/Mexico_City");
-            let ar = await Area.findOne({ 'nombre': params.nombre});
-            if (ar){ 
-            return res.status(400).send('El Área Ya Existe....')}
-            if (!ar){
-                area.nombre = params.nombre;
-                area.descripcion = params.descripcion;    
-                area.estatus = true;   
-                area.timestamp = fechaMX._d;    
-                area.save((err, areaStored) => {
-                if (err || !areaStored) {
-                    console.log(err);
-                    return res.status(404).send({});
-                }
-                res.status(200).send({
-                    _id: area._id,
-                    nombre: area.nombre,
-                    descripcion: area.descripcion,
-                })
-                
-              });
+        let idCentro = req.params.idCentro;
+        const area = new Area();
+        var params = req.body;
+        const centro = new Centro();
+        let fecha = new Date();
+        let fechaMX = moment(fecha).tz("America/Mexico_City");
+        let area_existe = await Area.findOne({ 'nombre': params.nombre});
+        if (area_existe){ 
+        
+        console.log(area_existe);
+        console.log(area_existe._id);
+
+        Centro.find({_id: idCentro}, (err, centro) => {
+        var arrayArea = centro[0].idArea;
+        arrayArea.push(area_existe._id); 
+        Centro.findOneAndUpdate({_id: idCentro}, {idArea: arrayArea}, (err, transferenciaUpdated) => {});
+        return res.status(400).send('El Área Ya Existe,Se Descartara Guardarla Pero Se Vinculara Al Centro De Trabajo....') 
+            });
         }
-     
-    }, //fin de guardar area
+        if (!area_existe){
+        area.nombre = params.nombre;
+        area.descripcion = params.descripcion;
+        area.estatus = true;   
+        area.timestamp = fechaMX._d;    
+      
+        let centro_existe = await Centro.findOne({_id: idCentro});
+        if (!centro_existe){ 
+        return res.status(400).send('No Existe Centro De Trabajo....')}
+
+        if (centro_existe){
+            Centro.find({_id: idCentro}, (err, centro) => {
+                var arrayArea = centro[0].idArea;
+                arrayArea.push(area._id); 
+                Centro.findOneAndUpdate({_id: idCentro}, {idArea: arrayArea}, (err, transferenciaUpdated) => {});
+                area.save((err, areaStored) => {
+                    if (err || !areaStored) {}})
+                     return res.status(200).send({});
+                    });
+    }
+}
+
+}, //fin de guardar area
 
     listarAA: async(req, res) => {//listar areas activas  
         var query = Area.find({ "estatus": true }, );

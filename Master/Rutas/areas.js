@@ -5,7 +5,7 @@ var auth0 = require('../Middleware/auth0');
 var router = express.Router();
 
 // Rutas útiles
-router.post('/area/guardar',  AreasController.guardar); //Guardar Un Centro.
+router.post('/area/guardar/:idCentro',  AreasController.guardar); //Guardar Un Centro.
 router.post('/area/importar',  AreasController.importar); //Importar Varios Centros
 router.get('/area/listarA/',   AreasController.listarAA); //Listar Centros Activas.
 router.get('/area/listarI/',   AreasController.listarAI); //Listar Centros Inactivas.
