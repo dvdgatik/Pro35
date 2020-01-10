@@ -22,52 +22,57 @@ var controller = { //Inicio Del Controlador
             if (empresa){ 
             return res.status(400).send('La Empresa Ya Existe....')}
             if (!empresa){
-            var validar_razon = !validator.isEmpty(emp.razonSocial = params.razonSocial);
-            var validar_alias = !validator.isEmpty(emp.alias = params.alias);
-            var validar_calle = !validator.isEmpty(emp.calle = params.calle);
-            var validar_col = !validator.isEmpty(emp.colonia = params.colonia);
-            var validar_cp = !validator.isEmpty(emp.cp = params.cp);     
-            var validar_rfc = !validator.isEmpty(emp.rfc = params.rfc);     
+            var vrazon = !validator.isEmpty(emp.razonSocial = params.razonSocial);
+            var valias = !validator.isEmpty(emp.alias = params.alias);
+            var vcalle = !validator.isEmpty(emp.calle = params.calle);
+            var vcol = !validator.isEmpty(emp.colonia = params.colonia);
+            var vcp = !validator.isEmpty(emp.cp = params.cp);     
+            var vrfc = !validator.isEmpty(emp.rfc = params.rfc);     
             emp.estatus = true;   
             emp.timestamp = fechaMX._d;    
 
             //DATOS DEL CENTRO DE TRABAJO
-            var validar_nombre_centro = !validator.isEmpty(cent.nombre = params.centroNombre);
-            var validar_tel_centro = !validator.isEmpty(cent.telefono = params.centroTelefono);
-            var validar_calle_centro = !validator.isEmpty(cent.calle = params.centroCalle);
-            var validar_col_centro = !validator.isEmpty(cent.colonia = params.centroColonia);
-            var validar_cp_centro = !validator.isEmpty(cent.cp = params.centroCp);       
+            let centro = await Centro.findOne({ 'nombre': params.centroNombre});
+            if (centro){ 
+            return res.status(400).send('El Centro Ya Existe....')}
+            if (!centro){
+            var vnombre_centro = !validator.isEmpty(cent.nombre = params.centroNombre);
+            var vtel_centro = !validator.isEmpty(cent.telefono = params.centroTelefono);
+            var vcalle_centro = !validator.isEmpty(cent.calle = params.centroCalle);
+            var vcol_centro = !validator.isEmpty(cent.colonia = params.centroColonia);
+            var vcp_centro = !validator.isEmpty(cent.cp = params.centroCp);       
             cent.estatus = true;   
             cent.timestamp = fechaMX._d;    
             
             //DATOS DEL AREA
-            area.nombre = params.areaNombre;
-            area.descripcion = params.areaDescripcion;    
+            var vnombre_area = !validator.isEmpty(area.nombre = params.areaNombre);
+            var vdescripcion_area = !validator.isEmpty(area.descripcion = params.areaDescripcion);    
             area.estatus = true;   
             area.timestamp = fechaMX._d;    
   
             emp.idCentro.push(cent._id);
             emp.idArea.push(area._id);
             
+            
+        if(vrazon && vrazon && valias && vcalle && vcol && vcp && vrfc && vnombre_centro && vtel_centro && vcalle_centro && vcol_centro && vcp_centro){
             emp.save((err, empresaStored) => {
-                 if (err || !empresaStored) {
-                 } 
-            //  console.log(dispersionStored); // return res.status(200).send({...dispersionStored._doc });
+            if (err || !empresaStored) {
+            } 
             cent.save((err, centroStored) => {
             if (err || !centroStored) {
-            } 
-             //      console.log(dispersionStored); // return res.status(200).send({...dispersionStored._doc });
-             })
+            }})
+            if(vnombre_area && vdescripcion_area){
             area.save((err, areaStored) => {
             if (err || !areaStored) {
-            } 
-            //      console.log(dispersionStored); // return res.status(200).send({...dispersionStored._doc });
-            })
+            }})
+            }
             return res.status(200).send({});
          })
-         
+        } 
+            }
     }
             }catch(err){
+                console.log(err);
                 return res.status(500).send({
                     status: 'error',
                     message: 'Faltan datos por enviar !!!'
