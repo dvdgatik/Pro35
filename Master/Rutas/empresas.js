@@ -5,7 +5,7 @@ var auth0 = require('../Middleware/auth0');
 var router = express.Router();
 
 // Rutas útiles
-router.post('/empresa/guardar',  EmpresasController.guardar); //Guardar Una Empresa.
+router.post('/empresa/guardar',  EmpresasController.guardar); //Guardar Una Empresa Nueva.
 router.post('/empresa/importar',  EmpresasController.importar); //Importar Varias Empresas.
 router.get('/empresa/listarA/',   EmpresasController.listarEA); //Listar Empresas Activas.
 router.get('/empresa/listarI/',   EmpresasController.listarEI); //Listar Empresas Inactivas.

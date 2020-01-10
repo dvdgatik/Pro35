@@ -11,75 +11,106 @@ var momentz = require('moment-timezone');
 
 var controller = { //Inicio Del Controlador 
     guardar: async(req, res) => {//guardar empresa  
-        try{
-            const cent = new Centro();
-            const emp = new Empresa();
-            const area = new Area();
-            var params = req.body;
-            let fecha = new Date();
-            let fechaMX = moment(fecha).tz("America/Mexico_City");
-            let empresa = await Empresa.findOne({ 'rfc': params.rfc});
-            if (empresa){ 
-            return res.status(400).send('La Empresa Ya Existe....')}
-            if (!empresa){
-            var vrazon = !validator.isEmpty(emp.razonSocial = params.razonSocial);
-            var valias = !validator.isEmpty(emp.alias = params.alias);
-            var vcalle = !validator.isEmpty(emp.calle = params.calle);
-            var vcol = !validator.isEmpty(emp.colonia = params.colonia);
-            var vcp = !validator.isEmpty(emp.cp = params.cp);     
-            var vrfc = !validator.isEmpty(emp.rfc = params.rfc);     
-            emp.estatus = true;   
-            emp.timestamp = fechaMX._d;    
+                var params = req.body;
+                let fecha = new Date();
+                let fechaMX = moment(fecha).tz("America/Mexico_City");
 
-            //DATOS DEL CENTRO DE TRABAJO
-            let centro = await Centro.findOne({ 'nombre': params.centroNombre});
-            if (centro){ 
-            return res.status(400).send('El Centro Ya Existe....')}
-            if (!centro){
-            var vnombre_centro = !validator.isEmpty(cent.nombre = params.centroNombre);
-            var vtel_centro = !validator.isEmpty(cent.telefono = params.centroTelefono);
-            var vcalle_centro = !validator.isEmpty(cent.calle = params.centroCalle);
-            var vcol_centro = !validator.isEmpty(cent.colonia = params.centroColonia);
-            var vcp_centro = !validator.isEmpty(cent.cp = params.centroCp);       
-            cent.estatus = true;   
-            cent.timestamp = fechaMX._d;    
-            
-            //DATOS DEL AREA
-            var vnombre_area = !validator.isEmpty(area.nombre = params.areaNombre);
-            var vdescripcion_area = !validator.isEmpty(area.descripcion = params.areaDescripcion);    
-            area.estatus = true;   
-            area.timestamp = fechaMX._d;    
-  
-            emp.idCentro.push(cent._id);
-            emp.idArea.push(area._id);
-            
-            
-        if(vrazon && vrazon && valias && vcalle && vcol && vcp && vrfc && vnombre_centro && vtel_centro && vcalle_centro && vcol_centro && vcp_centro){
-            emp.save((err, empresaStored) => {
-            if (err || !empresaStored) {
-            } 
-            cent.save((err, centroStored) => {
-            if (err || !centroStored) {
-            }})
-            if(vnombre_area && vdescripcion_area){
-            area.save((err, areaStored) => {
-            if (err || !areaStored) {
-            }})
-            }
-            return res.status(200).send({});
-         })
-        } 
-            }
-    }
-            }catch(err){
-                console.log(err);
-                return res.status(500).send({
-                    status: 'error',
-                    message: 'Faltan datos por enviar !!!'
-                });
-}
- 
- }, //fin de guardar empresa
+                try{
+                    //VALIDACION DE DATOS DE EMPRESA
+                    var val_empresa_razonSocial = !validator.isEmpty(params.empresaRazonSocial);
+                    var val_empresa_alias = !validator.isEmpty(params.empresaAlias);
+                    var val_empresa_calle = !validator.isEmpty(params.empresaCalle);
+                    var val_empresa_colonia = !validator.isEmpty(params.empresaColonia);
+                    var val_empresa_cp = !validator.isEmpty(params.empresaCP);
+                    var val_empresa_rfc = !validator.isEmpty(params.empresaRFC);
+
+                    //VALIDACION DE DATOS DE CENTRO DE TRABAJO
+                    var val_centro_nombre = !validator.isEmpty(params.centroNombre);
+                    var val_centro_telefono = !validator.isEmpty(params.centroTelefono);
+                    var val_centro_calle = !validator.isEmpty(params.centroCalle);
+                    var val_centro_colonia = !validator.isEmpty(params.centroColonia);
+                    var val_centro_cp = !validator.isEmpty(params.centroCP);
+                    
+                }catch(err){
+                    return res.status(500).send({
+                        status: 'error',
+                        message: 'Faltan datos por enviar !!!'
+                    });
+                }
+        
+              
+                var val_area_nombre = !validator.isEmpty(params.areaNombre);
+                var val_area_descripcion = !validator.isEmpty(params.areaDescripcion);
+
+                if(val_empresa_razonSocial && val_empresa_alias && val_empresa_calle && val_empresa_colonia && val_empresa_cp && val_empresa_rfc && val_centro_nombre && val_centro_telefono && val_centro_calle && val_centro_colonia && val_centro_cp){// SI NO VIENEN VACIOS
+                    //CREAMOS EL OBJETO
+                    const empresa = new Empresa();
+                    const centro = new Centro();   
+                    const area = new Area();        
+
+                    // Asignar valores
+                    area.nombre = params.areaNombre;
+                    area.descripcion = params.areaDescripcion;
+                    area.estatus = true;   
+                    area.timestamp = fechaMX._d; 
+
+                    centro.nombre = params.centroNombre;
+                    centro.telefono = params.centroTelefono;
+                    centro.calle = params.centroCalle;
+                    centro.colonia = params.centroColonia;
+                    centro.cp = params.centroCP;
+                    centro.estatus = true;   
+                    centro.timestamp = fechaMX._d; 
+
+                    empresa.razonSocial = params.empresaRazonSocial;
+                    empresa.alias = params.empresaAlias;
+                    empresa.calle = params.empresaCalle;
+                    empresa.colonia = params.empresaColonia;
+                    empresa.rfc = params.empresaRFC;
+                    empresa.cp = params.empresaCP;
+                    empresa.estatus = true;   
+                    empresa.timestamp = fechaMX._d; 
+                    empresa.idCentro.push(centro._id);
+
+                    if(val_area_descripcion && val_area_nombre){
+                        let area_existe = await Area.findOne({ 'nombre': params.areaNombre});
+                        if (area_existe){ 
+                        return res.status(400).send('El Area Ya Existe.... Se Omitira El Área')}
+                        if (!area_existe){
+                        empresa.idArea.push(area._id);
+                        centro.idArea.push(area._id);
+                        area.save((err, areaStored) => {
+                            if (err || !areaStored) {
+                                return res.status(400).send(err)
+                        }})
+                    }
+                    }else{      
+                    }
+                    
+                    let centro_existe = await Centro.findOne({ 'nombre': params.centroNombre});
+                    let empresa_existe = await Empresa.findOne({ 'rfc': params.empresaRFC});
+                    if (empresa_existe || centro_existe){ 
+                   return res.status(400).send('La Empresa O Centro Ya Existe.... Se Omitira El Centro O La Empresa')}
+                    if (!empresa_existe && !centro_existe){
+                    empresa.save((err, empresaStored) => {
+                            if (err || !empresaStored) {
+                                return res.status(400).send(err)
+                    }
+                    centro.save((err, centroStored) => {
+                        if (err || !centroStored) {
+                            return res.status(400).send(err)
+                    }})  
+                    })
+                    }             
+                return res.status(200).send('OK')
+                }else{
+                    return res.status(500).send({
+                        status: 'error',
+                        message: 'Los datos no son válidos !!!'
+                    });
+                }//FIN DE LA VALIDACION DE DATOS DE CENTRO Y EMPRESA
+
+}, //fin de guardar empresa
 
     listarEA: async(req, res) => {//listar empresas activas  
         var query = Empresa.find({ "estatus": true }, );
