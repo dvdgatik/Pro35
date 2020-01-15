@@ -6,7 +6,7 @@ let jwt = require('express-jwt');
 let jwks = require('jwks-rsa');
 let app = express();
 
-let usuario_routes = require('./Master/Rutas/usuarios');
+//let usuario_routes = require('./Master/Rutas/usuarios');
 let empresas_routes = require('./Master/Rutas/empresas');
 let centros_routes = require('./Master/Rutas/centros');
 let areas_routes = require('./Master/Rutas/areas');
@@ -23,6 +23,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api', [usuario_routes], [empresas_routes], [centros_routes], [areas_routes], [departamentos_routes]);
+app.use('/api', [empresas_routes], [centros_routes], [areas_routes], [departamentos_routes]);
 
 module.exports = app; 
