@@ -24,24 +24,32 @@ var controller = { //Inicio Del Controlador
           });
 }, 
 
-    listar: async(req, res) => {
-        let idDominio = req.params.idDominio;
-        let idDimension = req.params.idDimension;
+        listarT: async(req, res) => {
+            Categoria.find({})
+            .populate('idDominio')
+            .exec((err, categorias) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send({});
+                    }
+                    if (!categorias || categorias.length <= 0) {}
+                    return res.status(200).send(categorias)
+                });
+        },
 
-        var query = Categoria.find({}, );
-        var last = req.params.last;
-        if (last || last != undefined) {
-            query.limit(5);
-        }
-        query.sort('-_id').exec((err, categorias) => {
-            if (err) {
-                return res.status(500).send({});
-            }
-            if (!categorias) {
-                return res.status(404).send({});
-            }
-            return res.status(200).send({ categorias });
-        });
+    listar: async(req, res) => {
+        let idCategoria = req.params.id;
+
+        Categoria.findById({_id:idCategoria})
+        .populate('idDominio')
+        .exec((err, categorias) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send({});
+                }
+                if (!categorias || categorias.length <= 0) {}
+                return res.status(200).send(categorias)
+            });
 }
 
 
