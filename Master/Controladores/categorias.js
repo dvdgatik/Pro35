@@ -24,7 +24,32 @@ var controller = { //Inicio Del Controlador
           });
 }, 
 
+        listarT: async(req, res) => {
+            Categoria.find({})
+            .populate('idDominio')
+            .exec((err, categorias) => {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send({});
+                    }
+                    if (!categorias || categorias.length <= 0) {}
+                    return res.status(200).send(categorias)
+                });
+        },
+
     listar: async(req, res) => {
+        let idCategoria = req.params.id;
+
+        Categoria.findById({_id:idCategoria})
+        .populate('idDominio')
+        .exec((err, categorias) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send({});
+                }
+                if (!categorias || categorias.length <= 0) {}
+                return res.status(200).send(categorias)
+            });
 }
 
 
