@@ -7,5 +7,6 @@ var router = express.Router();
 
 // Rutas útiles
 router.post('/categoria/guardar',  CategoriasController.guardar); 
-router.get('/categoria/listar/',   CategoriasController.listar); 
+router.get('/categoria/listar/:id?/:idDominio?/:idDimension?',   CategoriasController.listar); 
 module.exports = router;
+ 

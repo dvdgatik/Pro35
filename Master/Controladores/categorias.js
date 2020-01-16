@@ -25,6 +25,23 @@ var controller = { //Inicio Del Controlador
 }, 
 
     listar: async(req, res) => {
+        let idDominio = req.params.idDominio;
+        let idDimension = req.params.idDimension;
+
+        var query = Categoria.find({}, );
+        var last = req.params.last;
+        if (last || last != undefined) {
+            query.limit(5);
+        }
+        query.sort('-_id').exec((err, categorias) => {
+            if (err) {
+                return res.status(500).send({});
+            }
+            if (!categorias) {
+                return res.status(404).send({});
+            }
+            return res.status(200).send({ categorias });
+        });
 }
 
 
