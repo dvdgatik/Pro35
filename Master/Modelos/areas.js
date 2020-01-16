@@ -14,4 +14,3 @@ var AreasSchema = Schema({
     }, { versionKey: false });
 
 module.exports = mongoose.model('Area', AreasSchema);
-// articles --> guarda documentos de este tipo y con estructura dentro de la colección

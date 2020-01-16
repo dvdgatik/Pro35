@@ -17,4 +17,3 @@ var EmpresasSchema = Schema({
     }, { versionKey: false });
 
 module.exports = mongoose.model('Empresa', EmpresasSchema);
-// articles --> guarda documentos de este tipo y con estructura dentro de la colección
