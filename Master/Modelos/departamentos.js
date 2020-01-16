@@ -12,4 +12,3 @@ var DepartamentosSchema = Schema({
     }, { versionKey: false });
 
 module.exports = mongoose.model('Departamento', DepartamentosSchema);
-// articles --> guarda documentos de este tipo y con estructura dentro de la colección

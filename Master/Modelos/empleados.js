@@ -26,4 +26,3 @@ var EmpleadosSchema = Schema({
     }, { versionKey: false });
 
 module.exports = mongoose.model('Empleado', EmpleadosSchema);
-// articles --> guarda documentos de este tipo y con estructura dentro de la colección

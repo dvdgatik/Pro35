@@ -16,4 +16,3 @@ var CentrosSchema = Schema({
     }, { versionKey: false });
 
 module.exports = mongoose.model('Centro', CentrosSchema);
-// articles --> guarda documentos de este tipo y con estructura dentro de la colección

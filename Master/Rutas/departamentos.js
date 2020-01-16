@@ -13,6 +13,3 @@ router.get('/departamento/buscar/:buscar?',   DepartamentosController.buscar);//
 router.put('/departamento/desactivar/:id',   DepartamentosController.desactivar); //Desactivar Un Centro.
 module.exports = router;
 
-
-//router.post('/usuario/guardar', auth0, UsuariosController.save); //Guardar Una Empresa.
-
