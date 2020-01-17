@@ -1,6 +1,8 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "React Client Front End",
+  "author":"DAVID GATICA",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.8.3",
