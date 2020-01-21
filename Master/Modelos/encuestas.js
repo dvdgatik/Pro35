@@ -5,8 +5,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EncuestasSchema = Schema({
-    idGuia: String,
-    idSeccion: String,
+    nombreEncuesta: String,
+    timestamp: Date,
+    idCategorias:  [{ type: Schema.ObjectId, ref: "Categorias" }],
+    idDominios:  [{ type: Schema.ObjectId, ref: "Dominios" }],
+    idDimensiones:  [{ type: Schema.ObjectId, ref: "Dimensiones" }],
+    idPreguntas:  [{ type: Schema.ObjectId, ref: "Preguntas" }],
+
     }, { versionKey: false });
 
 module.exports = mongoose.model('Encuesta', EncuestasSchema);

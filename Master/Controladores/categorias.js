@@ -10,7 +10,7 @@ var controller = { //Inicio Del Controlador
         const categoria = new Categoria();
         var params = req.body;
         let fechaMX = moment(fecha).tz("America/Mexico_City");
-        categoria.nombre = params.nombre;
+        categoria.nombreCategoria = params.nombreCategoria;
         categoria.idDominio = params.idDominio;
         var fecha = new Date();     
         categoria.timestamp=fechaMX;
@@ -50,8 +50,41 @@ var controller = { //Inicio Del Controlador
                 if (!categorias || categorias.length <= 0) {}
                 return res.status(200).send(categorias)
             });
-}
+},
 
+listar2: (req, res) => {
+    var nombre = req.params.nombre;
+    Categoria.find({nombreCategoria:nombre})
+    .populate({ 
+        path: 'idDominio',
+        populate: {
+          path: 'idDimension',
+          model: 'Dimensiones',
+             populate: {
+          path: 'idPreguntas',
+          model: 'Preguntas',
+
+          populate: {
+            path: 'idRespuestas',
+            model: 'Respuestas',
+          
+               }
+             }}
+    
+    
+        }) 
+        .sort([
+            ['date', 'descending']
+        ])
+        .exec((err, registros) => {
+            if (err) {
+                return res.status(500).send({err});
+            }
+            if (!registros || registros.length <= 0) {}
+
+            return res.status(200).send(registros)
+        });
+}
 
 
 
