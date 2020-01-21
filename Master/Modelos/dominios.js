@@ -5,9 +5,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DominioSchema = Schema({
-    nombre: String,
+    nombreDominio: String,
     timestamp: Date,
     idDimension: [{ type: Schema.ObjectId, ref: "Dimensiones" }],
     }, { versionKey: false });
 
-module.exports = mongoose.model('Dominio', DominioSchema);
+module.exports = mongoose.model('Dominios', DominioSchema);

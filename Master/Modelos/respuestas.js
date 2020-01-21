@@ -5,17 +5,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var RespuestasSchema = Schema({
-    idGuia: String,
-    idSeccion: String,
-    idEmpleado: [{ type: Schema.ObjectId, ref: "Empleados" }],
-    numPregunta: String,
-    timestamp: Date,
-    siempre: Int32Array,
-    casiSiempre: Int32Array,
-    algunasVeces: Int32Array,
-    casiNunca: Int32Array,
-    nunca: Int32Array,
-    siNo: Boolean,
+    nombreRespuesta: String,
+    valorRespuesta: Number,
     }, { versionKey: false });
 
-module.exports = mongoose.model('Respuesta', RespuestasSchema);
+module.exports = mongoose.model('Respuestas', RespuestasSchema);

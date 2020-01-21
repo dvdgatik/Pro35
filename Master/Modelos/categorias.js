@@ -5,9 +5,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var CategoriasSchema = Schema({
-    nombre: String,
+    nombreCategoria: String,
     timestamp: Date,
-    idDominio: [{ type: Schema.ObjectId, ref: "Dominio" }],
+    idDominio: [{ type: Schema.ObjectId, ref: "Dominios" }],
     }, { versionKey: false });
 
 module.exports = mongoose.model('Categorias', CategoriasSchema);

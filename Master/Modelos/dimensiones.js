@@ -5,11 +5,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DimensionesSchema = Schema({
-    nombre: String,
+    nombreDimension: String,
     timestamp: Date,
-    idGuia: String,
-    idSeccion: String,
-    preguntas: [String],
+    idPreguntas:  [{ type: Schema.ObjectId, ref: "Preguntas" }],
     }, { versionKey: false });
 
 module.exports = mongoose.model('Dimensiones', DimensionesSchema);
