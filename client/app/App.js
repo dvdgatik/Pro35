@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {Route, Switch, Router} from 'react-router-dom';
 import Stepper from './components/Stepper';
 import Login from './components/form/Login';
+import Signup from './components/form/SignUp';
+import Content from './components/template/Content'
+
 
 
 class App extends Component {
+
+    static propTypes = {
+        children: PropTypes.object.isRequired
+    };
     
     constructor() {
 		super(); //heredar todas las funcionalidades del componente
@@ -34,29 +43,14 @@ class App extends Component {
     }
 
     render() {
+        const {children} = this.props;
       return(
           <div>
         <Stepper></Stepper>
         <Login></Login>
 
           <h1>Encuestas</h1>
-          {
-              this.state.encuestas.map(encuesta => {
-                  return(
-                      <div key={encuesta._id}>
-                          <div>
-                             Guia: {encuesta.idGuia}
-                          </div>
-                          <div>
-                              Seccion: {encuesta.idSeccion}
-                          </div>
-                          <div>
-
-                          </div>
-                      </div>
-                  )
-              })
-          }
+          
           </div>
       )
     }
