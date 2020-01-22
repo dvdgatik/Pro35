@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import {Route, Switch, Router} from 'react-router-dom';
 import Stepper from './components/Stepper';
 import Login from './components/form/Login';
@@ -10,47 +10,69 @@ import Content from './components/template/Content'
 
 class App extends Component {
 
-    static propTypes = {
+    /*static propTypes = {
         children: PropTypes.object.isRequired
-    };
+    };*/
     
     constructor() {
 		super(); //heredar todas las funcionalidades del componente
 		this.state = {
-			idGuia: '',
-			idSeccion: '',
-			encuestas: [],
-			_id: ''
-
+            idDominio: [],
+            idPregunta: [],
+            nombreCategoria: "",
+            nombreDominio: "",
+            categorias: [],           
 		}; // estado de la aplicacion // cuando empieze la app todos los datos estarn en blanco
 		//this.addTask = this.addTask.bind(this);
-		//this.handleChange = this.handleChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
     }
     
-    fetchEncuestas() {
-        fetch('/api/encuestas')
+    fetchCategorias() {
+        fetch('/api/categoria/listarT')
         .then(res => res.json())
         .then(data=>{
             console.log(data);
-            this.setState({encuestas:data});
-            console.log(this.state.encuestas);
+            this.setState({categorias:data});
+            console.log(this.state.categorias+ " State");
         });
     }
 
+    
+
     componentDidMount() {
         console.log('componente fue montado');
-        this.fetchEncuestas();
+        this.fetchCategorias();
     }
 
+    handleChange(e) {
+		//console.log(e.target.name);
+		const { name, value } = e.target;
+		this.setState({
+			[name]: value
+		}); //cambiar el estado de una app de react
+
+	}
+
     render() {
-        const {children} = this.props;
+//const {children} = this.props;
       return(
           <div>
-        <Stepper></Stepper>
-        <Login></Login>
+          {
+              this.state.categorias.map(categoria => {
+                  return(
+                      <div key={categoria._id}>
+                          {categoria._id} <br></br>
+                          {categoria.nombreCategoria} <br></br>
+                          {JSON.stringify(categoria.idDominio[1])} <br></br>
+                          {JSON.stringify(categoria.idPreguntas)}
 
-          <h1>Encuestas</h1>
-          
+                          
+                                                   
+                      </div>
+                  )
+              })
+
+          }
           </div>
       )
     }
