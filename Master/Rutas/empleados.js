@@ -6,7 +6,6 @@ var router = express.Router();
 
 // Rutas útiles
 router.post('/empleados/guardar',  EmpleadosController.guardar); 
-router.post('/empleados/importar',  EmpleadosController.importar); 
 router.get('/empleados/listarA/',   EmpleadosController.listarEA); 
 router.get('/empleados/listarI/',   EmpleadosController.listarEI); 
 router.get('/empleados/buscar/:buscar?',   EmpleadosController.buscar);
