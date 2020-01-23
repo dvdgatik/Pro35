@@ -37,6 +37,9 @@ var EmpleadosSchema = Schema({
     fstLogin: Boolean,
     timestamp: Date,
     perfil: String,
+    idCentro:  [{ type: Schema.ObjectId, ref: "Centros" }],
+    idArea:  [{ type: Schema.ObjectId, ref: "Areas" }],
+    idPuesto:  [{ type: Schema.ObjectId, ref: "Puestos" }],
     }, { versionKey: false });
 
 module.exports = mongoose.model('Empleado', EmpleadosSchema);
