@@ -9,6 +9,7 @@ var router = express.Router();
 router.post('/categoria/guardar',  CategoriasController.guardar); 
 router.get('/categoria/listar/:id',   CategoriasController.listar); 
 router.get('/categoria/listarT/',   CategoriasController.listarT); 
-router.get('/categoria/listar2/:nombre',   CategoriasController.listar2); 
+router.get('/categoria/listar2/',   CategoriasController.listar2); 
+
 module.exports = router;
  

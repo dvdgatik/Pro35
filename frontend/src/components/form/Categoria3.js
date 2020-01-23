@@ -1,16 +1,9 @@
 import React, {Component} from 'react';
-//import PropTypes from 'prop-types';
-import {Route, Switch, Router} from 'react-router-dom';
-import Stepper from './components/Stepper';
-import Login from './components/form/Login';
-import Signup from './components/form/SignUp';
-import Content from './components/template/Content'
+import {render} from 'react-dom';
 
 
-
-class App extends Component {
-
-    /*static propTypes = {
+class Categoria3 extends Component {
+     /*static propTypes = {
         children: PropTypes.object.isRequired
     };*/
     
@@ -28,7 +21,7 @@ class App extends Component {
     }
     
     fetchCategorias() {
-        fetch('/api/categoria/listarT')
+        fetch('http://localhost:3000/api/categoria/listar2')
         .then(res => res.json())
         .then(data=>{
             console.log(data);
@@ -55,7 +48,8 @@ class App extends Component {
 
     render() {
 //const {children} = this.props;
-      return(
+const message = "Hola";
+return(
           <div>
           {
               this.state.categorias.map(categoria => {
@@ -63,11 +57,9 @@ class App extends Component {
                       <div key={categoria._id}>
                           {categoria._id} <br></br>
                           {categoria.nombreCategoria} <br></br>
-                          {JSON.stringify(categoria.idDominio[1])} <br></br>
-                          {JSON.stringify(categoria.idPreguntas)}
-
+                        {JSON.stringify(categoria.idDominio.map(dominios => dominios.nombreDominio).join("")).replace(/['"]+/g, '')} <br></br>
+                        { JSON.stringify(categoria.idPreguntas)}
                           
-                                                   
                       </div>
                   )
               })
@@ -76,7 +68,6 @@ class App extends Component {
           </div>
       )
     }
-    
 }
 
-export default App;
+export default Categoria3;

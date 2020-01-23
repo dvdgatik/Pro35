@@ -65,6 +65,29 @@ listar2: (req, res) => {
 
             return res.status(200).send(registros)
         });
+},
+
+
+listar3: (req, res) => {
+    var nombre = req.params.nombre;
+    Dominio.find({})
+    .populate({ 
+        path: 'idDimension',
+        populate: {
+          path: 'idPreguntas',
+          model: 'Preguntas'
+        }}) 
+        .sort([
+            ['date', 'descending']
+        ])
+        .exec((err, registros) => {
+            if (err) {
+                return res.status(500).send({err});
+            }
+            if (!registros || registros.length <= 0) {}
+
+            return res.status(200).send(registros)
+        });
 }
 
 

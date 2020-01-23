@@ -54,7 +54,7 @@ var controller = { //Inicio Del Controlador
 
 listar2: (req, res) => {
     var nombre = req.params.nombre;
-    Categoria.find({nombreCategoria:nombre})
+    Categoria.find({})
     .populate({ 
         path: 'idDominio',
         populate: {

@@ -20,9 +20,8 @@ mongoose.connect('mongodb+srv://srendon:20141530@cluster0-hjkav.azure.mongodb.ne
 app.use(morgan('dev'));
 app.use(express.json());
 //Routes
-app.use('/api/encuestas',require('./Master/Rutas/inicio.js'));
 //Static Files
-app.use(express.static(path.join(__dirname, 'client/public')));
+//app.use(express.static(path.join(__dirname, 'client/public')));
 console.log(path.join(__dirname,'client/public'));
 
 
