@@ -30,6 +30,7 @@ var controller = { //Inicio Del Controlador
         empleado.email = params.email;
         empleado.expTotal = 0;
         empleado.usuario = params.usuario;
+        empleado.perfil = params.perfil;
         empleado.passTemp = params.passTemp;
         const password = params.passTemp;
         const hash = bcryptjs.hashSync(password,11);

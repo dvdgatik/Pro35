@@ -25,6 +25,7 @@ var EmpleadosSchema = Schema({
     password: String,
     fstLogin: Boolean,
     timestamp: Date,
+    perfil: String,
     }, { versionKey: false });
 
 module.exports = mongoose.model('Empleado', EmpleadosSchema);
