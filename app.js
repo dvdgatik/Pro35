@@ -18,6 +18,7 @@ let encuestas_routes = require('./Master/Rutas/encuestas');
 let preguntas_routes = require('./Master/Rutas/preguntas');
 let respuestas_routes = require('./Master/Rutas/respuestas');
 let encuestasC_routes = require('./Master/Rutas/encuestasContestadas');
+let empleados_routes = require('./Master/Rutas/empleados');
 let periodos_routes = require('./Master/Rutas/periodos');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,6 +32,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api', [empresas_routes], [centros_routes], [areas_routes], [departamentos_routes], [dominios_routes], [dimensiones_routes], [categorias_routes], [encuestas_routes], [preguntas_routes],[respuestas_routes], [encuestasC_routes], [periodos_routes]);
+app.use('/api', [empresas_routes], [centros_routes], [areas_routes], [departamentos_routes], [dominios_routes], [dimensiones_routes], [categorias_routes], [encuestas_routes], [preguntas_routes],[respuestas_routes], [encuestasC_routes], [periodos_routes], [empleados_routes]);
 
 module.exports = app; 

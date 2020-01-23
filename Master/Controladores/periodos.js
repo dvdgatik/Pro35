@@ -9,6 +9,7 @@ var controller = { //Inicio Del Controlador
         const periodo = new Periodo();
         var params = req.body;
         let fechaMX = moment(fecha).tz("America/Mexico_City");
+        periodo.nombre = params.nombre;
         periodo.rango = params.rango;
         var fecha = new Date();     
         periodo.timestamp=fechaMX;

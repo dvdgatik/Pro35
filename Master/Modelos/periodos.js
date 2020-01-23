@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PeriodosSchema = Schema({
+    nombre: String,  
     rango: String,  
     timestamp: Date,
 

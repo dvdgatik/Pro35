@@ -5,19 +5,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EncuestaCSchema = Schema({
-
-
-
-
-
-
-    nombreEncuesta: String,
+    idGuia: String,
+    idEmpleado:  { type: Schema.ObjectId, ref: "Empleado" },
     timestamp: Date,
-    idCategorias:  [{ type: Schema.ObjectId, ref: "Categorias" }],
-    idDominios:  [{ type: Schema.ObjectId, ref: "Dominios" }],
-    idDimensiones:  [{ type: Schema.ObjectId, ref: "Dimensiones" }],
-    idPreguntas:  [{ type: Schema.ObjectId, ref: "Preguntas" }],
-
+    idPeriodo:  { type: Schema.ObjectId, ref: "Periodos" },
+    idRespuesta:  { type: Schema.ObjectId, ref: "Respuestas" },
+    idPregunta:  { type: Schema.ObjectId, ref: "Preguntas" },
+    idCategoria:  { type: Schema.ObjectId, ref: "Categorias" },
+    idDominio:  { type: Schema.ObjectId, ref: "Dominios" },
+    idDimension:  { type: Schema.ObjectId, ref: "Dimensiones" },
+    valorRespuesta: Number,
     }, { versionKey: false });
 
-module.exports = mongoose.model('EncuestaC', EncuestaCSchema);
+module.exports = mongoose.model('Contestada', EncuestaCSchema);
