@@ -41,14 +41,34 @@ var controller = { //Inicio Del Controlador
         let idCategoria = req.params.id;
 
         Categoria.findById({_id:idCategoria})
-        .populate('idDominio')
+        .populate({ 
+            path: 'idDominio',
+            populate: {
+              path: 'idDimension',
+              model: 'Dimensiones',
+                 populate: {
+              path: 'idPreguntas',
+              model: 'Preguntas',
+    
+              populate: {
+                path: 'idRespuestas',
+                model: 'Respuestas',
+              
+                   }
+                 }}
+        
+        
+            })
+            .sort([
+                ['date', 'descending']
+            ])
         .exec((err, categorias) => {
                 if (err) {
                     console.log(err);
                     return res.status(500).send({});
                 }
                 if (!categorias || categorias.length <= 0) {}
-                return res.status(200).send(categorias)
+                return res.status(200).send([categorias])
             });
 },
 

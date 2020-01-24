@@ -17,12 +17,15 @@ var EmpleadosSchema = Schema({
     tipoPersonal: String,
     tipoJornada: String,
     rolarTurnos: Boolean,
-    experienciaPuestoActual: Int32Array,
+    expPuestoActual: Number,
     email: String,
-    experienciaTotal: Int32Array,
+    expTotal: Number,
     usuario: String,
-    contraseña: String,
+    passTemp: String,
+    password: String,
     fstLogin: Boolean,
+    timestamp: Date,
+    perfil: String,
     }, { versionKey: false });
 
 module.exports = mongoose.model('Empleado', EmpleadosSchema);

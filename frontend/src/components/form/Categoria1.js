@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import '../../assets/css/Style.css';
+import { orange } from '@material-ui/core/colors';
+import Typography from '@material-ui/core/Typography';
+
 
 
 const useStyles = makeStyles({
@@ -65,6 +68,14 @@ function StyledRadio(props) {
     />
   );
 }
+
+const theme = createMuiTheme({
+  typography: {
+    // Tell Material-UI what the font-size on the html element is.
+    htmlFontSize: 16,
+  },
+});
+
 class Categoria1 extends Component {
 
     constructor() {
@@ -83,15 +94,26 @@ class Categoria1 extends Component {
 		}; 
 		this.handleChange = this.handleChange.bind(this);
     }
+
+    
     
     fetchCategorias() {
-        fetch('http://localhost:3000/api/categoria/listar2/')
+        fetch('http://localhost:3000/api/categoria/listar/5e27327a91f09e071c85810d/')
         .then(res => res.json())
         .then(data=>{
-            console.log(data + "Categorias");
-            this.setState({categorias:data});
-            console.log(this.state.categorias+ " Categorias");
+            console.log(data);
+           this.setState({categorias:data});
+            //console.log(this.state.categorias+ " Categorias");
         });
+    }
+
+    getSelectStyles(name, personName, theme) {
+      return {
+        fontWeight:
+          personName.indexOf(name) === -1
+            ? theme.typography.fontWeightRegular
+            : theme.typography.fontWeightMedium,
+      };
     }
 
     fetchDominios() {
@@ -126,29 +148,30 @@ class Categoria1 extends Component {
 //const {children} = this.props;
 const message = "Hola";
 return(
-          <div>
-              <h1 >Categorias</h1>
+  <ThemeProvider theme={theme}>
+          <div className="div-encuesta">
+              <h1 className='dn-id'><Typography>Categorias</Typography></h1>
           {
               this.state.categorias.map(categoria => {
                   return(
                       <div key={categoria._id}>
-                          <section className="section-categoria">{categoria.nombreCategoria} </section> 
+                          <section className="section-categoria"><Typography variant="h6">{categoria.nombreCategoria}</Typography> </section> 
                         {/*JSON.stringify(categoria.idDominio.map(dominios => dominios.nombreDominio).join("/")).replace(/['"]+/g, '')*/} <br></br>
 
                         {categoria.idDominio.map(dominio => {
                             return(
                                 <div key={dominio._id}>
-                                    <h3>Dominio <div className='dn-id'>{dominio._id} </div> {dominio.nombreDominio}</h3>
+                                    <div className="section-dominio"> <div className='dn-id'> Dominio {dominio._id} </div> <Typography variant="h6">{dominio.nombreDominio} </Typography></div>
                                     {
                                         dominio.idDimension.map(dimension => {
                                             return (
                                                 <div key={dimension._id}>
-                                                     Dimension {dimension._id} {dimension.nombreDimension}
+                                                      <div className="section-dimension"> <div className="dn-id">Dimension  {dimension._id}</div> <Typography>{dimension.nombreDimension}</Typography></div> 
                                                      {
                                                         dimension.idPreguntas.map(pregunta => {
                                                          return(
-                                                             <div key={pregunta._id}>
-                                                                 <h5>Pregunta {pregunta._id} {pregunta.nombrePregunta}</h5>
+                                                             <div className="section-preguntas" key={pregunta._id}>
+                                                                 <div className="dn-id">Pregunta {pregunta._id} </div><Typography variant="h6"> {pregunta.nombrePregunta}: </Typography>
                                                                  <RadioGroup  aria-label={pregunta._id} name="customized-radios">
                                                                  <FormLabel component="legend">Respuestas</FormLabel>
                                                                  {
@@ -196,6 +219,7 @@ return(
 
           }
           </div>
+          </ThemeProvider>
       )
     }
 }

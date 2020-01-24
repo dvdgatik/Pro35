@@ -1,3 +1,42 @@
 .dn-id {
     display: none;
 }
+
+.MuiSelect-root {
+    height: 32px !important;
+}
+.section-categoria {
+    background-color: #242440;
+    padding: 10px;
+    color:#fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.section-dominio {
+    background-color: #242440;
+    padding: 10px;
+    color:#fff;
+    text-align: right;
+    font-weight: bold;
+}
+
+.section-dimension {
+    background-color: #242440;
+    padding: 10px;
+    color:#fff;
+    text-align: right;
+    font-weight: bold;
+}
+
+.div-encuesta {
+    background-color: #f9f9f9;
+}
+
+.dn-id {
+    display: none;
+}
+
+.section-preguntas{
+    padding: 20px 200px;
+}

@@ -6,6 +6,6 @@ var auth0 = require('../Middleware/auth0');
 var router = express.Router();
 
 // Rutas útiles
-router.post('/contestada/guardar/',   EncuestasCController.guardar); 
-router.get('/contestada/listar/:numeroPregunta',   EncuestasCController.listar); 
+router.post('/encuestaC/guardar/',   EncuestasCController.guardar); 
+router.get('/encuestaC/listar/:nombre',   EncuestasCController.listar); 
 module.exports = router;

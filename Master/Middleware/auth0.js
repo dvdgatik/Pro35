@@ -12,10 +12,10 @@ var jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://ahurus.auth0.com/.well-known/jwks.json'
+    jwksUri: 'https://pro35.auth0.com/.well-known/jwks.json'
 }),
-audience: 'http://ahurus',
-issuer: 'https://ahurus.auth0.com/',
+audience: 'http://pro35',
+issuer: 'https://pro35.auth0.com/',
 algorithms: ['RS256'],
 getToken: function fromHeaderOrQuerystring (req) {
 if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {

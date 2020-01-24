@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Redirect, Link} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+
 //import App from './App';
 
 
@@ -24,6 +25,9 @@ const App = () =>
             <Route exact path="/login" component={Login}/>
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/" component={Encuesta1}/>
+            <Route exact path="/encuesta/1" component={Encuesta1}/>
+            <Route exact path="/encuesta/2" component={Encuesta1}/>
+            <Route exact path="/encuestas/" component={Encuesta1}/>
             <Route component={Page404}/>
         </Switch>
     </Router>;
