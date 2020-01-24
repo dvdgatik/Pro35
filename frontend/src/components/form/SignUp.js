@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import {Avatar, Button, CssBaseline,TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@material-ui/core'
 //import Avatar from '@material-ui/core/Avatar';
 //import Button from '@material-ui/core/Button';
@@ -172,21 +172,54 @@ export default function SignUp() {
     setPersonName(event.target.value);
   };
 
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      nombre: "bill",
-      apellido: "luo",
-      email: "test@test.com",
-      empleados: [],
-      _id: ''
-    }
-  });
-  const onSubmit = data => {
-    alert(JSON.stringify(data));
-  };
-  
+  const [nombre, setNombre] = useState('fsdfds')
+  const [paterno, setPaterno] = useState('')
+  const [materno, setMaterno] = useState('')
+  const [sexo, setSexo] = useState('')
+  const [edad, setEdad] = useState('')
+  const [edoCivil, setEdoCivil] = useState('')
+  const [nivelEstudios, setNivelEstudios] = useState('')
+  const [profesion, setProfesion] = useState('')
+  const [tipoPuesto, setTipoPuesto] = useState('')
+  const [tipoContratacion, setTipoContratacion] = useState('')
+  const [tipoPersonal, setTipoPersonal] = useState('')
+  const [tipoJornada, setTipoJornada] = useState('')
+  const [rolarTurnos, setRolarTurnos] = useState(false)
+  const [expPuestoActual, setExpPuestoActual] = useState(0)
+  const [email, setEmail] = useState('')
+  const [expTotal, setExpTotal] = useState(0)
+  const [usuario, setUsuario] = useState('holacomoestas')
+  const [perfil, setPerfil] = useState('')
+  const [passTemp, setPassTemp] = useState('admin')
+  const [fstLogin, setFstLogin] = useState(true)
+  const [isSent, setIsSent] = useState(false)
 
+  const thankYouMessage = <p>Tank you for Your input!</p>
+  const from = <form>...</form>
+
+  const submit = e => {
+    e.preventDefault()   
+     fetch('http://localhost:3000/api/empleado/guardar', {
+      method: 'POST',
+      body: JSON.stringify({
+        usuario,
+        passTemp,
+      }),
+      headers: {
+				'Accept': 'application/json',
+				'content-type':'application/json'
+			}
+    }).then(alert(passTemp))
+    .catch(err => console.log(err))
+  }
+
+  console.log(submit)
+
+
+  
+  
   return (
+    
     <Container component="main" maxWidth="md">
       <CssBaseline />
       <div className={classes.paper}>
@@ -196,7 +229,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Datos Personales
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={submit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={4}>
               <TextField
@@ -207,18 +240,33 @@ export default function SignUp() {
                 fullWidth
                 id="nombre"
                 label="Nombre"
-                ref={register}
+                value={nombre}
+                onChange={e => setNombre(e.target.value)}
                 autoFocus
               />
-              <input type='text' name="nombre" ref={register} />
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
                 autoComplete="fname"
-                name="Apellido Paterno"
+                name="usuario"
                 variant="outlined"
                 required
                 fullWidth
+                value={usuario}
+                id="usuario"
+                label="Usuario"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                autoComplete="fname"
+                name="app_paterno"
+                variant="outlined"
+                required
+                fullWidth
+                value={paterno}
+                onChange={e => setPaterno(e.target.value)}
                 id="app_paterno"
                 label="Apellido Paterno"
                 autoFocus
@@ -233,13 +281,15 @@ export default function SignUp() {
                 label="Apellido Materno"
                 name="app_materno"
                 autoComplete="lname"
+                value={materno}
+                onChange={e => setMaterno(e.target.value)}
               />
             </Grid>
             <Grid item xs={4}>
             <FormLabel component="legend">Sexo</FormLabel>
             <RadioGroup defaultValue="h" aria-label="sexo" name="customized-radios">
-        <FormControlLabel value="h" control={<StyledRadio />} label="Hombre" />
-        <FormControlLabel value="m" control={<StyledRadio />} label="Mujer" />
+        <FormControlLabel value={sexo}  onChange={e => setSexo(e.target.value)} control={<StyledRadio />} label="Hombre" />
+        <FormControlLabel value={sexo}  onChange={e => setSexo(e.target.value)} control={<StyledRadio />} label="Mujer" />
       </RadioGroup>
               
             </Grid>
@@ -470,10 +520,11 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
+                name="passTemp"
                 label="Password"
                 type="password"
-                id="password"
+                id="passTemp"
+                value={passTemp}
                 autoComplete="current-password"
               />
             </Grid>
@@ -484,7 +535,7 @@ export default function SignUp() {
               />
           </Grid>*/}
           </Grid>
-          <Button
+        <Button
             type="submit"
             fullWidth
             variant="contained"

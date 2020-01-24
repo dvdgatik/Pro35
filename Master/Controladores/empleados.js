@@ -45,6 +45,8 @@ var controller = { //Inicio Del Controlador
         empleado.idArea = params.idArea;
         empleado.idPuesto = params.idPuesto;
         const password = params.passTemp;
+        console.log(params.passTemp)
+        console.log(password)
         const hash = bcryptjs.hashSync(password,11);
         empleado.password = hash;
         empleado.fstLogin = true;
