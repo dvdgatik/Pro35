@@ -16,11 +16,7 @@ import history from "./utils/history";
 
 //Components
 //import App from './App';
-import Login from "../../frontend/src/components/form/Login";
-import SignUp from "../../frontend/src/components/form/SignUp";
-import Page404 from "../../frontend/src/components/template/Page404";
-import Stepper from "../../frontend/src/components/form/Stepper";
-import Encuesta1 from '../../frontend/src/components/form/Encuesta1';
+
 import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config.json";
 

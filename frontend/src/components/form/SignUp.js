@@ -1,19 +1,6 @@
 import React, { useState }  from 'react';
-import {Avatar, Button, CssBaseline,TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@material-ui/core'
-//import Avatar from '@material-ui/core/Avatar';
-//import Button from '@material-ui/core/Button';
-//import CssBaseline from '@material-ui/core/CssBaseline';
-//import TextField from '@material-ui/core/TextField';
-//import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import Checkbox from '@material-ui/core/Checkbox';
-//import Link from '@material-ui/core/Link';
-//import Grid from '@material-ui/core/Grid';
-//import Box from '@material-ui/core/Box';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
+import {Avatar, Button, CssBaseline,TextField, FormControlLabel, MenuItem, Checkbox, InputLabel, Link, Grid, Box, Typography, Container} from '@material-ui/core'
 import { useForm } from "react-hook-form";
-
-
 
 import Radio from '@material-ui/core/Radio';
 import clsx from 'clsx';
@@ -62,23 +49,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const useSelectStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    maxWidth: 300,
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: theme.spacing(3),
-  },
-}));
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -90,78 +60,6 @@ const MenuProps = {
     },
   },
 };
-
-function getSelectStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-const names = [
-  'Casado',
-  'Soltero',
-  'Unión Libre',
-  'Divorciado',
-  'Viudo'
-];
-
-const nivel_estudios = [
-  'Terminada',
-  'Incompleta'
-];
-
-const tipo_puesto = [
-  'Operativo',
-  'Profesional ó técnico',
-  'Supervisor',
-  'Gerente'
-];
-
-const tipo_contratacion = [
-  'Por obra o proyecto',
-  'Por tiempo determinado (temporal)',
-  'Tiempo indeterminado',
-  'Honorarios'
-]
-
-const tipo_personal = [
-  'Sindicalizado',
-  'Confianza',
-  'Ninguno'
-]
-
-const tipo_jornada_trabajo = [
-  'Fijo nocturno (entre 20:00 y 6:00 hrs)',
-  'Fijo diurno (entre las 6:00 y 20:00 hrs)',
-  'Fijo mixto (combinación de nocturno y diurno)'
-]
-
-const tiempo_puesto_actual = [
-  'Menos de 6 meses',
-  'Entre 6 meses y  1 año',
-  'Entre 1 a 4 años',
-  'Entre 5 a 9 años',
-  'Entre 10 a 14 años',
-  'Entre 15 a 19 años',
-  'Entre 20 a 24 años',
-  '25 años o más'
-]
-
-const tiempo_exp_laboral = [
-  'Menos de 6 meses',
-  'Entre 6 meses y  1 año',
-  'Entre 1 a 4 años',
-  'Entre 5 a 9 años',
-  'Entre 10 a 14 años',
-  'Entre 15 a 19 años',
-  'Entre 20 a 24 años',
-  '25 años o más'
-]
-
-
-
 
 const useRadioStyles = makeStyles({
   root: {
@@ -225,42 +123,89 @@ export default function SignUp() {
   const theme = useTheme();
   const classes = useStyles();
   const [personName, setPersonName] = React.useState([]);
-  const handleChange = event => {
-    setPersonName(event.target.value);
-  };
-
-  const [nombre, setNombre] = useState('fsdfds')
-  const [paterno, setPaterno] = useState('')
-  const [materno, setMaterno] = useState('')
-  const [sexo, setSexo] = useState('')
-  const [edad, setEdad] = useState('')
-  const [edoCivil, setEdoCivil] = useState('')
-  const [nivelEstudios, setNivelEstudios] = useState('')
-  const [profesion, setProfesion] = useState('')
-  const [tipoPuesto, setTipoPuesto] = useState('')
-  const [tipoContratacion, setTipoContratacion] = useState('')
-  const [tipoPersonal, setTipoPersonal] = useState('')
-  const [tipoJornada, setTipoJornada] = React.useState([])
-  const [rolarTurnos, setRolarTurnos] = useState(false)
-  const [expPuestoActual, setExpPuestoActual] = useState(0)
-  const [email, setEmail] = useState('')
-  const [expTotal, setExpTotal] = useState(0)
-  const [usuario, setUsuario] = useState('holacomoestas')
-  const [perfil, setPerfil] = useState('')
-  const [passTemp, setPassTemp] = useState('admin')
-  const [fstLogin, setFstLogin] = useState(true)
-  const [isSent, setIsSent] = useState(false)
+  
+  const [nombre, setNombre] = useState('');
+  const [paterno, setPaterno] = useState('');
+  const [materno, setMaterno] = useState('');
+  const [sexo, setSexo] = useState('');
+  const [edad, setEdad] = useState('');
+  const [edoCivil, setEdoCivil] = React.useState('');
+  const [nivelEstudiosSF, setNivelEstudiosSF] = useState('');
+  const [nivelEstudiosP, setNivelEstudiosP] = useState('');
+  const [nivelEstudiosS, setNivelEstudiosS] = useState('');
+  const [nivelEstudiosB, setNivelEstudiosB] = useState('');
+  const [nivelEstudiosTS, setNivelEstudiosTS] = useState('');
+  const [nivelEstudiosL, setNivelEstudiosL] = useState('');
+  const [nivelEstudiosM, setNivelEstudiosM] = useState('');
+  const [nivelEstudiosD, setNivelEstudiosD] = useState('');
+  const [profesion, setProfesion] = useState('');
+  const [departamento, setDepartamento] = useState('');
+  const [tipoPuesto, setTipoPuesto] = useState('');
+  const [tipoContratacion, setTipoContratacion] = useState('');
+  const [tipoPersonal, setTipoPersonal] = useState('');
+  const [tipoJornada, setTipoJornada] = useState('');
+  const [rolarTurnos, setRolarTurnos] =  React.useState(true);
+  const [expPuestoActual, setExpPuestoActual] = useState(0);
+  const [email, setEmail] = useState('');
+  const [expTotal, setExpTotal] = useState('');
+  const [usuario, setUsuario] = useState('');
+  const [perfil, setPerfil] = useState('');
+  const [passTemp, setPassTemp] = useState('');
+  const [fstLogin, setFstLogin] = useState(true);
+  const [isSent, setIsSent] = useState(false);
 
   const thankYouMessage = <p>Tank you for Your input!</p>
   const from = <form>...</form>
 
+ 
+  const handleChange = event => {
+    {/*setPersonName(event.target.value);
+    setEdoCivil(event.target.value);
+    setNivelEstudiosSF(event.target.checked);
+    setEdoCivil(event.target.value);
+    setTipoPuesto(event.target.value);
+    setTipoContratacion(event.target.value);
+    setTipoPersonal(event.target.value);
+    setTipoJornada(event.target.value);
+    setExpPuestoActual(event.target.value)
+    setExpTotal(event.target.value)
+    */}
+  };
+
   const submit = e => {
+    let fstLogin = true
     e.preventDefault()   
      fetch('http://localhost:3000/api/empleado/guardar', {
       method: 'POST',
       body: JSON.stringify({
+        nombre,
+        paterno,
+        materno,
+        sexo,
+        edad,
+        edoCivil,
+        nivelEstudiosSF,
+        nivelEstudiosP,
+        nivelEstudiosS,
+        nivelEstudiosB,
+        nivelEstudiosTS,
+        nivelEstudiosL,
+        nivelEstudiosM,
+        nivelEstudiosD,
+        profesion,
+        departamento,
+        tipoPuesto,
+        tipoContratacion,
+        tipoPersonal,
+        tipoJornada,
+        rolarTurnos,
+        expPuestoActual,
+        expTotal,
+        email,
+        perfil,
         usuario,
         passTemp,
+        fstLogin 
       }),
       headers: {
 				'Accept': 'application/json',
@@ -284,8 +229,8 @@ export default function SignUp() {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Datos Personales
+        <Typography component="h2" variant="h5">
+        Información del trabajador      
         </Typography>
         <form className={classes.form} onSubmit={submit} noValidate>
           <Grid container spacing={2}>
@@ -301,7 +246,7 @@ export default function SignUp() {
                 value={nombre}
                 onChange={e => setNombre(e.target.value)}
                 autoFocus
-              />
+              />  
             </Grid>
             <Grid item xs={12} sm={4}>
               <TextField
@@ -350,119 +295,181 @@ export default function SignUp() {
               id="edad"
               name="edad"
               label="Edad"
+              value={edad}
               type="number"
-              onChange={e => setEdad(e.target.value)}
+              onChange={e => setEdad(e.target.valueAsNumber)}
               InputLabelProps={{
                shrink: true,
               }}
         />
             </Grid>
             <Grid item xs={4}>
+            <FormControl           style={{ width:'100%'}} className={classes.formControl}>
+            <InputLabel id="demo-mutiple-name-label">Estado Civil</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={edoCivil}
+              onChange={e => setEdoCivil(e.target.value)}
+            >
+              <MenuItem value="Casado">Casado</MenuItem>
+              <MenuItem value="Soltero">Soltero</MenuItem>
+              <MenuItem value="Unión Libre">Unión Libre</MenuItem>
+              <MenuItem value="Unión Libre">Divorciado</MenuItem>
+              <MenuItem value="Unión Libre">Viudo</MenuItem>
+            </Select>
+        </FormControl>
+       
+            </Grid>
+            <Grid item xs={4}>
             <FormLabel component="legend">Sexo</FormLabel>
-            <RadioGroup defaultValue="h" aria-label="sexo" name="customized-radios">
-        <FormControlLabel value={sexo}  onChange={e => setSexo(e.target.value)} control={<StyledRadio />} label="Hombre" />
-        <FormControlLabel value={sexo}  onChange={e => setSexo(e.target.value)} control={<StyledRadio />} label="Mujer" />
+            <RadioGroup defaultValue={sexo} aria-label="sexo" name="customized-radios">
+        <FormControlLabel value="h"  onChange={e => setSexo(e.target.value)} control={<StyledRadio />} label="Hombre" />
+        <FormControlLabel value="m"  onChange={e => setSexo(e.target.value)} control={<StyledRadio />} label="Mujer" />
       </RadioGroup>
               
             </Grid>
+           
+            <Grid item xs={12}>
+            <FormLabel component="legend"><Typography component="h2" variant="h5" align="center">Nivel de Estudios</Typography> </FormLabel>
+            <hr></hr>
+            </Grid>
             <Grid item xs={4}>
-            <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Estado Civil</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        </FormControl>
+          
+          
+           
+              <Typography>Sin Formación</Typography>
+              
+              
+              <Checkbox
+                checked={nivelEstudiosSF}
+                onChange={e => setNivelEstudiosSF(e.target.checked)}
+                value="Sin Formación"            
+            />
+             
+            
+              
+          
+            </Grid>
+            <Grid item xs={4}>
+            <FormLabel component="legend">Primaría</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosP} aria-label="primaria" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosP(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosP(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
+            </Grid>
+
+            <Grid item xs={4}>
+            <FormLabel component="legend">Secundaría</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosS} aria-label="secundaria" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosS(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosS(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
+            </Grid>
+            <Grid item xs={4}>
+            <FormLabel component="legend">Preparatoria o Bachillerato</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosB} aria-label="preparatoria" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosB(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosB(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
+            </Grid>
+            <Grid item xs={4}>
+            <FormLabel component="legend">Técnico Superior</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosTS} aria-label="TS" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosTS(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosTS(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
+            </Grid>
+
+            <Grid item xs={4}>
+            <FormLabel component="legend">Licenciatura</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosL} aria-label="L" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosL(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosL(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
+            </Grid>
+
+            <Grid item xs={4}>
+            <FormLabel component="legend">Maestría</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosM} aria-label="M" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosM(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosM(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
+            </Grid>
+
+            <Grid item xs={4}>
+            <FormLabel component="legend">Doctorado</FormLabel>
+
+            <RadioGroup defaultValue={nivelEstudiosD} aria-label="D" name="customized-radios">
+        <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosD(e.target.value)} control={<StyledRadio />} label="Terminada" />
+        <FormControlLabel value="Incompleta"  onChange={e => setNivelEstudiosD(e.target.value)} control={<StyledRadio />} label="Incompleta" />
+      </RadioGroup>
+          
             </Grid>
             <Grid item xs={12}>
-            <FormLabel component="legend">Nivel de Estudios </FormLabel>
+            <FormLabel component="legend"><Typography align="center" component="h2" variant="h5">Datos Laborales:</Typography> </FormLabel>
+            <hr></hr>
             </Grid>
-            <Grid item xs={4}>
           
-            <FormLabel component="legend">Sin formación</FormLabel>
-            <RadioGroup defaultValue="" aria-label="rolar_turnos" name="customized-radios">
-              <FormControlLabel value="" control={<StyledRadio />}  />
-            </RadioGroup>
-          
-            </Grid>
-            <Grid item xs={4}>
-          
-        
-          
-            </Grid>
-            <Grid item xs={4}>
-            <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        
-        </FormControl>
+
+            <Grid item xs={12} sm={4}>
+              <TextField
+                autoComplete="fname"
+                name="profesion"
+                variant="outlined"
+                required
+                fullWidth
+                value={profesion}
+                onChange={e => setProfesion(e.target.value)}
+                id="profesion"
+                label="Ocupación/Profesión/Puesto"
+                autoFocus
+              />
             </Grid>
 
 
-            <Grid item xs={4}>
-            <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Profesión</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        
-        </FormControl>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                autoComplete="fname"
+                name="departamento"
+                variant="outlined"
+                required
+                fullWidth
+                value={departamento}
+                onChange={e => setDepartamento(e.target.value)}
+                id="departamento"
+                label="Departamento/Sección/Area"
+                autoFocus
+              />
             </Grid>
 
             <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
             <InputLabel id="demo-mutiple-name-label">Tipo de Puesto</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {tipo_puesto.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
+            <Select
+              labelId="demo-simple-select-label"
+              id="tipo_puesto"
+              value={tipoPuesto}
+              onChange={e => setTipoPuesto(e.target.value)}
+            >
+              <MenuItem value="Operativo">Operativo</MenuItem>
+              <MenuItem value="Profesional o técnico">Profesional o técnico</MenuItem>
+              <MenuItem value="Supervisor">Supervisor</MenuItem>
+              <MenuItem value="Gerente">Gerente</MenuItem>
+            </Select>
+        
         
         </FormControl>
             </Grid>
@@ -470,93 +477,80 @@ export default function SignUp() {
             <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
             <InputLabel id="demo-mutiple-name-label">Tipo de Contratacion</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {tipo_contratacion.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
+            <Select
+              labelId="demo-simple-select-label"
+              id="tipo_contratacion"
+              value={tipoContratacion}
+              onChange={e => setTipoContratacion(e.target.value)}
+            >
+              <MenuItem value="Por obra o proyecto">Por obra o proyecto</MenuItem>
+              <MenuItem value="Por tiempo determinado (temporal)">Por tiempo determinado (temporal)</MenuItem>
+              <MenuItem value="Tiempo Indeterminado">Tiempo Indeterminado</MenuItem>
+              <MenuItem value="Honorarios">Honorarios</MenuItem>
+            </Select>
         
         </FormControl>
             </Grid>
             <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Tipo de Personal</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {tipo_personal.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        
+            <InputLabel id="tipo_personal">Tipo de Personal</InputLabel>
+            <Select
+              labelId="tipo_personal"
+              id="tipo_personal"
+              value={tipoPersonal}
+              onChange={e => setTipoPersonal(e.target.value)}
+            >
+              <MenuItem value="Sindicalizado">Sindicalizado</MenuItem>
+              <MenuItem value="Confianza">Confianza</MenuItem>
+              <MenuItem value="Ninguno">Ninguno</MenuItem>
+            </Select>
         </FormControl>
+
             </Grid>
             <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Tipo de Jornada</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {tipo_jornada_trabajo.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, tipoJornada, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-        
+            <InputLabel id="tipo_jornada">Tipo de Jornada</InputLabel>
+            <Select
+              labelId="tipo_jornada"
+              id="tipo_jornada"
+              value={tipoJornada}
+              onChange={e => setTipoJornada(e.target.value)}
+            >
+              <MenuItem value="Fijo nocturno (entre las 20:00 y 6:00 hrs)">Fijo nocturno (entre las 20:00 y 6:00 hrs)</MenuItem>
+              <MenuItem value="Fijo diurno (entre las 6:00 y 20:00 hrs">Fijo diurno (entre las 6:00 y 20:00 hrs</MenuItem>
+              <MenuItem value="Fijo mixto (combinación de nocturno y diurno)">Fijo mixto (combinación de nocturno y diurno)</MenuItem>
+            </Select>
         </FormControl>
             </Grid>
             <Grid item xs={4}>
             <FormLabel component="legend">Rolar Turnos</FormLabel>
-            <RadioGroup defaultValue="" aria-label="rolar_turnos" name="customized-radios">
-        <FormControlLabel value="" control={<StyledRadio />}  />
-      </RadioGroup>
-              
+            <Checkbox
+                checked={rolarTurnos}
+                onChange={e => setRolarTurnos(e.target.checked)}
+                value="true"            
+            />
+             
             </Grid>
 
 
             <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Experiencia Puesto Actual</InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {tiempo_puesto_actual.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
+            <InputLabel id="exp_actual">Experiencia Puesto Actual</InputLabel>
+            <Select
+              labelId="exp_actual"
+              id="exp_actual"
+              value={expPuestoActual}
+              onChange={e => setExpPuestoActual(e.target.value)}
+            >
+              <MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
+              <MenuItem value="Entre 6 meses y  1 año">Entre 6 meses y  1 año</MenuItem>
+              <MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
+              <MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
+              <MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
+              <MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
+              <MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
+              <MenuItem value="25 años o más">25 años o más</MenuItem>
+            </Select>
         
         </FormControl>
             </Grid>
@@ -567,34 +561,36 @@ export default function SignUp() {
 
               <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Experiencia Total </InputLabel>
-        <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<Input />}
-          MenuProps={MenuProps}
-        >
-          {tiempo_puesto_actual.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
+            <InputLabel id="exp_total">Experiencia Total </InputLabel>
+            <Select
+              labelId="exp_total"
+              id="exp_total"
+              value={expTotal}
+              onChange={e => setExpTotal(e.target.value)}
+            >
+              <MenuItem value="Menos de 6 meses">Menos de 6 meses</MenuItem>
+              <MenuItem value="Entre 6 meses y  1 año">Entre 6 meses y  1 año</MenuItem>
+              <MenuItem value="Entre 1 a 4 años">Entre 1 a 4 años</MenuItem>
+              <MenuItem value="Entre 5 a 9 años">Entre 5 a 9 años</MenuItem>
+              <MenuItem value="Entre 10 a 14 años">Entre 10 a 14 años</MenuItem>
+              <MenuItem value="Entre 15 a 19 años">Entre 15 a 19 años</MenuItem>
+              <MenuItem value="Entre 20 a 24 años">Entre 20 a 24 años</MenuItem>
+              <MenuItem value="25 años o más">25 años o más</MenuItem>
+            </Select>
         
         </FormControl>
             </Grid>
 
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 autoComplete="fname"
                 name="email"
                 variant="outlined"
                 required
                 fullWidth
+                value={email}
+                onChange= {e => setEmail(e.target.value)}
                 id="email"
                 label="Correo Electrónico"
                 autoFocus
@@ -610,6 +606,7 @@ export default function SignUp() {
                 label="Password"
                 type="password"
                 id="passTemp"
+                onChange = {e => setPassTemp(e.target.value)}
                 value={passTemp}
                 autoComplete="current-password"
               />
