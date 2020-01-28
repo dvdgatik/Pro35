@@ -1,5 +1,6 @@
 import React from "react";
-import { useAuth0 } from "../../react-auth0-spa";
+import { useAuth0} from "../../react-auth0-spa";
+import { Redirect ,Router, Route, Switch } from "react-router-dom";
 
 const Login = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -13,7 +14,8 @@ const Login = () => {
         </div>
       )}
 
-      {isAuthenticated && <button onClick={() => logout()}>Salir</button>}
+      {/*isAuthenticated && <button onClick={() => logout()}>Salir</button>*/}
+      <Redirect to='/signup'/>;   
     </div>
   );
 };

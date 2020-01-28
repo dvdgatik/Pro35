@@ -13,6 +13,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
+import Header from '../template/Header';
 //import Container from '@material-ui/core/Container';
 
 function Copyright() {
@@ -211,7 +212,7 @@ export default function SignUp() {
 				'Accept': 'application/json',
 				'content-type':'application/json'
 			}
-    }).then(alert(passTemp))
+    }).then(alert('Datos Guardados con exito') )
     .catch(err => console.log(err))
   }
 
@@ -221,9 +222,9 @@ export default function SignUp() {
   
   
   return (
-    
+    <div>
+          <Header></Header>
     <Container component="main" maxWidth="md">
-      
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -640,5 +641,6 @@ export default function SignUp() {
        {/*<Copyright />*/}
       </Box>
     </Container>
+    </div>
   );
 }

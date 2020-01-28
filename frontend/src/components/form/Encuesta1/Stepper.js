@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ['Ambiente de Trabajo', 'Factores propios de la actividad', 'Organizacion del tiempo de trabajo','Liderazgo y relaciones en el trabajo'];
+  return ['Ambiente de trabajo', 'Factores propios de la actividad', 'Organización del tiempo de trabajo','Liderazgo y relaciones en el trabajo'];
 }
 
 function GetStepContent(props) {

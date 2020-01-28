@@ -245,7 +245,7 @@ class Categoria1 extends Component {
                                               localStorage.setItem(respuesta._id + '/' + pregunta._id + '/' + respuesta.valorRespuesta, JSON.stringify(respuesta._id))
                                               return (
                                                 <div key={respuesta._id}>
-                                                  <FormControlLabel value={respuesta._id + '/' + respuesta.valorRespuesta} control={<StyledRadio />} label={respuesta.nombreRespuesta} />
+                                                  <FormControlLabel  value={respuesta._id + '/' + respuesta.valorRespuesta} control={<StyledRadio />} label={respuesta.nombreRespuesta} />
 
                                                 </div>
                                               )
