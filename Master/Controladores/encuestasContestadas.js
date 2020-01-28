@@ -15,23 +15,23 @@ var controller = { //Inicio Del Controlador
         let fechaMX = moment(fecha).tz("America/Mexico_City");
         encuestaC.idGuia = params.idGuia;
         encuestaC.idEmpleado = params.idEmpleado;
-        encuestaC.idPeriodo = params.idPeriodo;
-        encuestaC.idCategoria = params.idCategoria;
-        encuestaC.idDominio = params.idDominio;
-        encuestaC.idDimension = params.idDimension;
+        encuestaC.idPeriodo = params.idPeriodo;      
         encuestaC.timestamp=fechaMX;
-        encuestaC.idRespuesta = params.idRespuesta;
-        encuestaC.idPregunta = params.idPregunta;
-        encuestaC.valorRespuesta = params.valorRespuesta;
-        var fecha = new Date();     
-        encuestaC.save((err, respuestaStored) => {
-            if (err || !respuestaStored) {
-                console.log(err);
-                return res.status(404).send({});
-            }
-            res.status(200).send({...respuestaStored._doc})
-            
-          });
+        var fecha = new Date();  
+        for (var i=0; i< params.respuestasc.length; i++){    
+            var dataT = params.respuestasc;   
+          }
+          encuestaC.respuestasc = dataT;
+            await encuestaC.save((err, respuestaStored) => {
+                if (err || !respuestaStored) {
+                    console.log(err);
+                    return res.status(404).send({});
+                }
+                res.status(200).send({...respuestaStored._doc})
+                
+              });
+   
+
 }, 
     listar: async(req, res) => { 
         var nombre = req.params.nombre;

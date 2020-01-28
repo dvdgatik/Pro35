@@ -33,6 +33,7 @@ var controller = { //Inicio Del Controlador
                         return res.status(500).send({});
                     }
                     if (!categorias || categorias.length <= 0) {}
+                    console.log(categorias)
                     return res.status(200).send(categorias)
                 });
         },
