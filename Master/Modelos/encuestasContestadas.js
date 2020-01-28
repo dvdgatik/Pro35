@@ -14,6 +14,7 @@ var EncuestaCSchema = Schema({
     idCategoria:  { type: Schema.ObjectId, ref: "Categorias" },
     idDominio:  { type: Schema.ObjectId, ref: "Dominios" },
     idDimension:  { type: Schema.ObjectId, ref: "Dimensiones" },
+    respuestasc : [],
     valorRespuesta: Number,
     }, { versionKey: false });
 
