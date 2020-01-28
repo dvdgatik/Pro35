@@ -220,14 +220,14 @@ class Categoria1 extends Component {
 
                     return (
                       <div key={dominio._id}>
-                        <div className="section-dominio"> <div className='dn-id'> Dominio {dominio._id} </div> <Typography variant="h6">{dominio.nombreDominio} </Typography></div>
+                        {/*<div className="section-dominio"> <div className='dn-id'> Dominio {dominio._id} </div> <Typography variant="h6">{dominio.nombreDominio} </Typography></div>*/}
                         {
                           dominio.idDimension.map(dimension => {
                             localStorage.setItem('dimension ' + dimension._id, JSON.stringify(dimension._id))
 
                             return (
                               <div key={dimension._id}>
-                                <div className="section-dimension"> <div className="dn-id">Dimension  {dimension._id}</div> <Typography>{dimension.nombreDimension}</Typography></div>
+                                {/*<div className="section-dimension"> <div className="dn-id">Dimension  {dimension._id}</div> <Typography>{dimension.nombreDimension}</Typography></div>*/}
                                 {
                                   dimension.idPreguntas.map(pregunta => {
                                     return (

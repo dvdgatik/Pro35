@@ -78,7 +78,7 @@ export default function HorizontalLabelPositionBelowStepper() {
 				'Accept': 'application/json',
 				'content-type':'application/json'
 			}
-    }).then(alert(respuestasc))
+    }).then(localStorage.clear())
     .catch(err => console.log(err))
   }
 
@@ -127,10 +127,23 @@ export default function HorizontalLabelPositionBelowStepper() {
               >
                 Atras
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Terminar' : 'Siguiente'}
-              </Button>
-              <button  className={classes.submit} type="submit">Guardar</button>
+              {/*<Button variant="contained" color="primary" onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'Terminar' : 'Siguiente'} 
+                
+        </Button>*/}
+              {
+                activeStep === steps.length - 1 ? (
+                <Button variant="contained" color="primary" type="submit" onClick={handleNext} className={classes.submit}>
+                    Terminar
+                </Button>
+                
+                ) : (
+                <Button variant="contained" color="primary" onClick={handleNext}>
+                    Siguiente
+                </Button>
+              )
+              }
+              {/*<button  className={classes.submit} type="submit">Guardar</button>*/}
             </div>
           </div>
         )}

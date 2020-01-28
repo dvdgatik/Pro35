@@ -212,7 +212,7 @@ export default function SignUp() {
 				'Accept': 'application/json',
 				'content-type':'application/json'
 			}
-    }).then(alert('Datos Guardados con exito') )
+    }).then(window.location.href = "/home")
     .catch(err => console.log(err))
   }
 
@@ -336,24 +336,16 @@ export default function SignUp() {
             <hr></hr>
             </Grid>
             <Grid item xs={4}>
-          
-          
-           
               <Typography>Sin Formación</Typography>
-              
-              
               <Checkbox
                 checked={nivelEstudiosSF}
                 onChange={e => setNivelEstudiosSF(e.target.checked)}
                 value="Sin Formación"            
             />
-             
-            
-              
-          
             </Grid>
-            <Grid item xs={4}>
-            <FormLabel component="legend">Primaría</FormLabel>
+            
+            <Grid   item xs={4}>
+            <FormLabel  component="legend">Primaría</FormLabel>
 
             <RadioGroup defaultValue={nivelEstudiosP} aria-label="primaria" name="customized-radios">
         <FormControlLabel value="Terminada"  onChange={e => setNivelEstudiosP(e.target.value)} control={<StyledRadio />} label="Terminada" />
