@@ -52,7 +52,7 @@ var controller = { //Inicio Del Controlador
     
               populate: {
                 path: 'idRespuestas',
-                model: 'Respuestas',
+                model: 'Respuestas'
               
                    }
                  }}
@@ -86,7 +86,7 @@ listar2: (req, res) => {
 
           populate: {
             path: 'idRespuestas',
-            model: 'Respuestas',
+            model: 'Respuestas'
           
                }
              }}

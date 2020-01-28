@@ -57,6 +57,34 @@ function GetStepContent(props) {
 }
 
 export default function HorizontalLabelPositionBelowStepper() {
+
+  const [respuestasc , setRespuestas] = React.useState('');
+  const [idGuia, setIdGuia] = React.useState('5e28e7d2b7322430dc052716');
+  const [idEmpleado, setEmpleado] = React.useState('Test')
+  const [idPeriodo, setPeriodo] = React.useState('5e28d918eed21a15e06b3dec')
+
+
+  const submit = e => {
+    let respuestasc = localStorage.getItem('respuestas')
+    e.preventDefault()   
+     fetch('http://localhost:3000/api/empleado/guardar', {
+      method: 'POST',
+      body: JSON.stringify({      
+        idEmpleado,
+        idGuia,
+        idPeriodo,
+        respuestasc,
+      }),
+      headers: {
+				'Accept': 'application/json',
+				'content-type':'application/json'
+			}
+    }).then(alert(respuestasc))
+    .catch(err => console.log(err))
+  }
+
+  console.log(submit)
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -74,6 +102,7 @@ export default function HorizontalLabelPositionBelowStepper() {
   };
 
   return (
+    <form className={classes.form} onSubmit={submit} noValidate>
     <div className={classes.root}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map(label => (
@@ -102,10 +131,12 @@ export default function HorizontalLabelPositionBelowStepper() {
               <Button variant="contained" color="primary" onClick={handleNext}>
                 {activeStep === steps.length - 1 ? 'Terminar' : 'Siguiente'}
               </Button>
+              <button  className={classes.submit} type="submit">Guardar</button>
             </div>
           </div>
         )}
       </div>
     </div>
+    </form>
   );
 }

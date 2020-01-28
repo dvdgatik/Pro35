@@ -106,6 +106,63 @@ const names = [
   'Divorciado',
   'Viudo'
 ];
+
+const nivel_estudios = [
+  'Terminada',
+  'Incompleta'
+];
+
+const tipo_puesto = [
+  'Operativo',
+  'Profesional ó técnico',
+  'Supervisor',
+  'Gerente'
+];
+
+const tipo_contratacion = [
+  'Por obra o proyecto',
+  'Por tiempo determinado (temporal)',
+  'Tiempo indeterminado',
+  'Honorarios'
+]
+
+const tipo_personal = [
+  'Sindicalizado',
+  'Confianza',
+  'Ninguno'
+]
+
+const tipo_jornada_trabajo = [
+  'Fijo nocturno (entre 20:00 y 6:00 hrs)',
+  'Fijo diurno (entre las 6:00 y 20:00 hrs)',
+  'Fijo mixto (combinación de nocturno y diurno)'
+]
+
+const tiempo_puesto_actual = [
+  'Menos de 6 meses',
+  'Entre 6 meses y  1 año',
+  'Entre 1 a 4 años',
+  'Entre 5 a 9 años',
+  'Entre 10 a 14 años',
+  'Entre 15 a 19 años',
+  'Entre 20 a 24 años',
+  '25 años o más'
+]
+
+const tiempo_exp_laboral = [
+  'Menos de 6 meses',
+  'Entre 6 meses y  1 año',
+  'Entre 1 a 4 años',
+  'Entre 5 a 9 años',
+  'Entre 10 a 14 años',
+  'Entre 15 a 19 años',
+  'Entre 20 a 24 años',
+  '25 años o más'
+]
+
+
+
+
 const useRadioStyles = makeStyles({
   root: {
     '&:hover': {
@@ -183,7 +240,7 @@ export default function SignUp() {
   const [tipoPuesto, setTipoPuesto] = useState('')
   const [tipoContratacion, setTipoContratacion] = useState('')
   const [tipoPersonal, setTipoPersonal] = useState('')
-  const [tipoJornada, setTipoJornada] = useState('')
+  const [tipoJornada, setTipoJornada] = React.useState([])
   const [rolarTurnos, setRolarTurnos] = useState(false)
   const [expPuestoActual, setExpPuestoActual] = useState(0)
   const [email, setEmail] = useState('')
@@ -221,6 +278,7 @@ export default function SignUp() {
   return (
     
     <Container component="main" maxWidth="md">
+      
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -253,6 +311,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 value={usuario}
+                onChange={e => setUsuario(e.target.value)}
                 id="usuario"
                 label="Usuario"
                 autoFocus
@@ -285,6 +344,19 @@ export default function SignUp() {
                 onChange={e => setMaterno(e.target.value)}
               />
             </Grid>
+            <Grid item xs={12} sm={4}>
+            <TextField
+              variant="outlined"
+              id="edad"
+              name="edad"
+              label="Edad"
+              type="number"
+              onChange={e => setEdad(e.target.value)}
+              InputLabelProps={{
+               shrink: true,
+              }}
+        />
+            </Grid>
             <Grid item xs={4}>
             <FormLabel component="legend">Sexo</FormLabel>
             <RadioGroup defaultValue="h" aria-label="sexo" name="customized-radios">
@@ -313,10 +385,24 @@ export default function SignUp() {
         </Select>
         </FormControl>
             </Grid>
-
+            <Grid item xs={12}>
+            <FormLabel component="legend">Nivel de Estudios </FormLabel>
+            </Grid>
+            <Grid item xs={4}>
+          
+            <FormLabel component="legend">Sin formación</FormLabel>
+            <RadioGroup defaultValue="" aria-label="rolar_turnos" name="customized-radios">
+              <FormControlLabel value="" control={<StyledRadio />}  />
+            </RadioGroup>
+          
+            </Grid>
+            <Grid item xs={4}>
+          
+        
+          
+            </Grid>
             <Grid item xs={4}>
             <FormControl           style={{ width:'100%'}} className={classes.formControl}>
-            <InputLabel id="demo-mutiple-name-label">Nivel de Estudios</InputLabel>
         <Select
           labelId="demo-mutiple-name-label"
           id="demo-mutiple-name"
@@ -371,7 +457,7 @@ export default function SignUp() {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map(name => (
+          {tipo_puesto.map(name => (
             <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
               {name}
             </MenuItem>
@@ -393,7 +479,7 @@ export default function SignUp() {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map(name => (
+          {tipo_contratacion.map(name => (
             <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
               {name}
             </MenuItem>
@@ -414,7 +500,7 @@ export default function SignUp() {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map(name => (
+          {tipo_personal.map(name => (
             <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
               {name}
             </MenuItem>
@@ -435,8 +521,8 @@ export default function SignUp() {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map(name => (
-            <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
+          {tipo_jornada_trabajo.map(name => (
+            <MenuItem key={name} value={name} style={getSelectStyles(name, tipoJornada, theme)}>
               {name}
             </MenuItem>
           ))}
@@ -465,7 +551,7 @@ export default function SignUp() {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map(name => (
+          {tiempo_puesto_actual.map(name => (
             <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
               {name}
             </MenuItem>
@@ -491,7 +577,7 @@ export default function SignUp() {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {names.map(name => (
+          {tiempo_puesto_actual.map(name => (
             <MenuItem key={name} value={name} style={getSelectStyles(name, personName, theme)}>
               {name}
             </MenuItem>

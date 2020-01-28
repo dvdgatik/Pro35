@@ -2,6 +2,10 @@ import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter as Router, Switch, Route, Redirect, Link} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+import App from "./App";
+import history from "./utils/history";
+
+
 
 //import App from './App';
 
@@ -17,9 +21,30 @@ import SignUp from "../../frontend/src/components/form/SignUp";
 import Page404 from "../../frontend/src/components/template/Page404";
 import Stepper from "../../frontend/src/components/form/Stepper";
 import Encuesta1 from '../../frontend/src/components/form/Encuesta1';
+import { Auth0Provider } from "./react-auth0-spa";
+import config from "./auth_config.json";
 
+const onRedirectCallback = appState => {
+    history.push(
+      appState && appState.targetUrl
+        ? appState.targetUrl
+        : window.location.pathname
+    );
+  };
 
-const App = () =>
+  render(
+    <Auth0Provider
+      domain={config.domain}
+      client_id={config.clientId}
+      redirect_uri={window.location.origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <App />
+    </Auth0Provider>,
+    document.getElementById("root")
+  );
+
+{/*const App = () =>
     <Router>
         <Switch>
             <Route exact path="/login" component={Login}/>
@@ -35,7 +60,7 @@ const App = () =>
 
 render(<App />, 
 document.getElementById('root')
-);
+);*/}
 
 
 // If you want your app to work offline and load faster, you can change

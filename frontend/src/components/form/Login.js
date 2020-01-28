@@ -1,13 +1,21 @@
-import React, {Component} from 'react';
-import {render} from 'react-dom';
+import React from "react";
+import { useAuth0 } from "../../react-auth0-spa";
 
+const Login = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-class Encuesta1 extends Component {
-    render() {
-        return(
-            <h1>Encuesta1</h1>
-        );
-    }
-}
+  return (
+    <div>
+      {!isAuthenticated && (
+          <div>
+        {/*<button onClick={() => loginWithRedirect({})}>Ingresar</button>*/}
+        {loginWithRedirect({})}
+        </div>
+      )}
 
-export default Encuesta1;
+      {isAuthenticated && <button onClick={() => logout()}>Salir</button>}
+    </div>
+  );
+};
+
+export default Login;
