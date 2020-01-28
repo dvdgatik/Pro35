@@ -59,15 +59,15 @@ function GetStepContent(props) {
 export default function HorizontalLabelPositionBelowStepper() {
 
   const [respuestasc , setRespuestas] = React.useState('');
-  const [idGuia, setIdGuia] = React.useState('5e28e7d2b7322430dc052716');
-  const [idEmpleado, setEmpleado] = React.useState('Test')
+  const [idGuia, setIdGuia] = React.useState('test2');
+  const [idEmpleado, setEmpleado] = React.useState('5e28e7d2b7322430dc052716')
   const [idPeriodo, setPeriodo] = React.useState('5e28d918eed21a15e06b3dec')
 
 
   const submit = e => {
-    let respuestasc = localStorage.getItem('respuestas')
+    let respuestasc = JSON.parse(localStorage.getItem('respuestas'))
     e.preventDefault()   
-     fetch('http://localhost:3000/api/empleado/guardar', {
+     fetch('http://localhost:3000/api/encuestaC/guardar', {
       method: 'POST',
       body: JSON.stringify({      
         idEmpleado,
