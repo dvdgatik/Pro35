@@ -230,6 +230,10 @@ class Categoria2 extends Component {
                                 <div className="section-dimension"> <div className="dn-id">Dimension  {dimension._id}</div> <Typography>{dimension.nombreDimension}</Typography></div>
                                 {
                                   dimension.idPreguntas.map(pregunta => {
+                                    localStorage.setItem('preguntas ' + pregunta._id, JSON.stringify(pregunta._id))
+                                    let respuestasLS = JSON.parse(localStorage.getItem('respuestas')) || [];
+                                    //alert(JSON.stringify(respuestasLS.length))
+                                    //alert(JSON.stringify(dimension._id))
                                     return (
                                       <div className="section-preguntas" key={pregunta._id}>
                                         <div className="dn-id">Pregunta {pregunta._id} </div><Typography variant="h6"> {pregunta.nombrePregunta}: </Typography>
@@ -241,6 +245,7 @@ class Categoria2 extends Component {
                                           {
 
                                             pregunta.idRespuestas.map(respuesta => {
+                                          
 
                                               localStorage.setItem(respuesta._id + '/' + pregunta._id + '/' + respuesta.valorRespuesta, JSON.stringify(respuesta._id))
                                               return (

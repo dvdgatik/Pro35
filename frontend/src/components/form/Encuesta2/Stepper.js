@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -9,6 +9,8 @@ import Categoria2 from './Categoria2';
 import Categoria3 from './Categoria3';
 import Categoria4 from './Categoria4';
 import Typography from '@material-ui/core/Typography';
+import Dataencuestas from '../Dataencuestas';
+import { useAuth0 } from "../../../react-auth0-spa";
 
 
 
@@ -30,25 +32,34 @@ function getSteps() {
   return ['I.- Acontecimiento traumático severo', 'II.- Recuerdos persistentes sobre el acontecimiento (durante el último mes)', 'III.- Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento (durante el último mes)','IV Afectación (durante el último mes)'];
 }
 
+function newProps(categoria1, categoria2,categoria3,categoria4) {
+
+}
+
+
 function GetStepContent(props) {
-    
+  
   switch (props.activeStep) {
     case 0:
+      let categoria1='5e27327a91f09e071c85810d';
       return(
           <Categoria1/>
       );
       
     case 1:
+      let categoria2 = '5e2a221a500d6132b8e0d237';
       return(
           <Categoria2/>
-      );
+        );
     case 2:
+      let categoria3 = '5e27327a91f09e071c85810d'
       return (
           <Categoria3/>
       )
     case 3: 
+       let categoria4 = '5e27327a91f09e071c85810d'
         return (
-            <Categoria4/>
+          <Categoria4/>
         )
     default:
       return 'Unknown stepIndex';
@@ -100,6 +111,8 @@ export default function HorizontalLabelPositionBelowStepper() {
     setActiveStep(0);
   };
 
+  const { user } = useAuth0()
+
   return (
     <form className={classes.form} onSubmit={submit} noValidate>
     <div className={classes.root}>
@@ -144,6 +157,8 @@ export default function HorizontalLabelPositionBelowStepper() {
               )
               }
               {/*<button  className={classes.submit} type="submit">Guardar</button>*/}
+              
+              {JSON.stringify(user.sub).replace('"auth0|','').replace('"','')}
             </div>
           </div>
         )}

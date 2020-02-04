@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -9,7 +9,8 @@ import Categoria2 from './Categoria2';
 import Categoria3 from './Categoria3';
 import Categoria4 from './Categoria4';
 import Typography from '@material-ui/core/Typography';
-
+import { useAuth0 } from "../../../react-auth0-spa";
+import ReactDOM from 'react-dom';
 
 
 
@@ -30,25 +31,27 @@ function getSteps() {
   return ['Ambiente de trabajo', 'Factores propios de la actividad', 'Organización del tiempo de trabajo','Liderazgo y relaciones en el trabajo'];
 }
 
-function GetStepContent(props) {
+
+
+function GetStepContent(props, formRef) {
+   switch (props.activeStep) {
     
-  switch (props.activeStep) {
     case 0:
       return(
-          <Categoria1/>
+          <Categoria1 ref={formRef} />
       );
       
     case 1:
       return(
-          <Categoria2/>
+          <Categoria2 ref={formRef}/>
       );
     case 2:
       return (
-          <Categoria3/>
+          <Categoria3 ref={formRef}/>
       )
     case 3: 
         return (
-            <Categoria4/>
+            <Categoria4 ref={formRef}/>
         )
     default:
       return 'Unknown stepIndex';
@@ -57,11 +60,14 @@ function GetStepContent(props) {
 
 export default function HorizontalLabelPositionBelowStepper() {
 
-  const [respuestasc , setRespuestas] = React.useState('');
-  const [idGuia, setIdGuia] = React.useState('test2');
-  const [idEmpleado, setEmpleado] = React.useState('5e28e7d2b7322430dc052716')
-  const [idPeriodo, setPeriodo] = React.useState('5e28d918eed21a15e06b3dec')
+  let formRef = React.createRef();
 
+ /// const { user } = useAuth0();
+ // const idUser = JSON.stringify(user.sub).replace('"auth0|','').replace('"','')
+  const [respuestasc , setRespuestas] = React.useState('');
+  const [idGuia, setIdGuia] = React.useState('testpene');
+  const [idEmpleado, setEmpleado] = React.useState('');
+  const [idPeriodo, setPeriodo] = React.useState('5e28d918eed21a15e06b3dec')
 
   const submit = e => {
     let respuestasc = JSON.parse(localStorage.getItem('respuestas'))
@@ -86,8 +92,9 @@ export default function HorizontalLabelPositionBelowStepper() {
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [checkDisabledNext, setCheckDisabledNext] = React.useState(false)
+  const [disabledNext, setDisableNext] = React.useState(false);
   const steps = getSteps();
-
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
@@ -99,6 +106,7 @@ export default function HorizontalLabelPositionBelowStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
 
   return (
     <form className={classes.form} onSubmit={submit} noValidate>
@@ -115,6 +123,7 @@ export default function HorizontalLabelPositionBelowStepper() {
           <div>
             <Typography className={classes.instructions}>Encuesta Terminada</Typography>
             <Button onClick={handleReset}>Reset</Button>
+            {window.location.href = "/home"}
           </div>
         ) : (
           <div>
@@ -138,7 +147,7 @@ export default function HorizontalLabelPositionBelowStepper() {
                 </Button>
                 
                 ) : (
-                <Button variant="contained" color="primary" onClick={handleNext}>
+                <Button variant="contained" color="primary" onClick={handleNext} >
                     Siguiente
                 </Button>
               )

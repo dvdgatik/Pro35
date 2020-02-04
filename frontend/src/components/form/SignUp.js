@@ -15,6 +15,7 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import Header from '../template/Header';
 //import Container from '@material-ui/core/Container';
+import { useAuth0 } from "../../react-auth0-spa";
 
 function Copyright() {
   return (
@@ -48,7 +49,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
 
 
 const ITEM_HEIGHT = 48;
@@ -121,6 +121,8 @@ function StyledRadio(props) {
 
 
 export default function SignUp() {
+ // const { user } = useAuth0();
+
   const theme = useTheme();
   const classes = useStyles();
   const [personName, setPersonName] = React.useState([]);
@@ -145,15 +147,17 @@ export default function SignUp() {
   const [tipoContratacion, setTipoContratacion] = useState('');
   const [tipoPersonal, setTipoPersonal] = useState('');
   const [tipoJornada, setTipoJornada] = useState('');
-  const [rolarTurnos, setRolarTurnos] =  React.useState(true);
+  const [rolarTurnos, setRolarTurnos] =  React.useState(false);
   const [expPuestoActual, setExpPuestoActual] = useState(0);
   const [email, setEmail] = useState('');
   const [expTotal, setExpTotal] = useState('');
-  const [usuario, setUsuario] = useState('');
+  const [usuario, setUsuario] = useState();
   const [perfil, setPerfil] = useState('');
   const [passTemp, setPassTemp] = useState('');
-  const [fstLogin, setFstLogin] = useState(true);
+  const [fstLogin, setFstLogin] = useState(false);
   const [isSent, setIsSent] = useState(false);
+
+  //const user_ = JSON.stringify(user.sub).replace('"auth0|','').replace('"','')
 
   const thankYouMessage = <p>Tank you for Your input!</p>
   const from = <form>...</form>
@@ -175,6 +179,7 @@ export default function SignUp() {
 
   const submit = e => {
     let fstLogin = true
+    
     e.preventDefault()   
      fetch('http://localhost:3000/api/empleado/guardar', {
       method: 'POST',
@@ -212,7 +217,7 @@ export default function SignUp() {
 				'Accept': 'application/json',
 				'content-type':'application/json'
 			}
-    }).then(window.location.href = "/home")
+    }).then(alert('empleado guardado'))
     .catch(err => console.log(err))
   }
 
@@ -223,7 +228,8 @@ export default function SignUp() {
   
   return (
     <div>
-          <Header></Header>
+      
+    <Header></Header>
     <Container component="main" maxWidth="md">
       <CssBaseline />
       <div className={classes.paper}>
@@ -297,6 +303,7 @@ export default function SignUp() {
               name="edad"
               label="Edad"
               value={edad}
+              required
               type="number"
               onChange={e => setEdad(e.target.valueAsNumber)}
               InputLabelProps={{
@@ -340,7 +347,8 @@ export default function SignUp() {
               <Checkbox
                 checked={nivelEstudiosSF}
                 onChange={e => setNivelEstudiosSF(e.target.checked)}
-                value="Sin Formación"            
+                onClick={e => setNivelEstudiosSF(e.target.checked)}
+                value="true"            
             />
             </Grid>
             

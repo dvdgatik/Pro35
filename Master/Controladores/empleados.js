@@ -153,7 +153,24 @@ var controller = { //Inicio Del Controlador
         return res.status(500).send({});
     }
  
-    }
+    },
+
+    listarid: async(req, res) => {
+        let idEmpleado = req.params.id;
+
+        Empleado.findById({_id:idEmpleado})
+            .sort([
+                ['date', 'descending']
+            ])
+        .exec((err, empleado) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send({});
+                }
+                if (!empleado || empleado.length <= 0) {}
+                return res.status(200).send([empleado])
+            });
+}
 
 
 

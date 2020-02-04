@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { render } from 'react-dom';
 import clsx from 'clsx';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import '../../../assets/css/Style.css';
 import { orange } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
+import ReactDOM from 'react-dom';
 
 
 
@@ -76,9 +77,26 @@ const theme = createMuiTheme({
   },
 });
 
-class Categoria1 extends Component {
+//class Categoria1 extends Component 
 
-  constructor() {
+function Categoria1({parentCallback})
+{
+
+  const [count, setCount] = useState(0);
+  const [idDominio, setIdDominio] = useState([])
+  const [idPregunta, setIdPregunta] = useState([])
+  const [nombreCategoria, setNombreCategoria] = useState("")
+  const [nombreDominio, setNombreDominio] = useState("")
+  const [categorias, setCategorias] = useState([])
+  const [dominios, setDominios] = useState([])
+  const [dimensiones, setDimensiones] = useState([])
+  const [preguntas, setPreguntas] = useState([])
+  const [answer, setAnswer] = useState('')
+
+
+
+
+  /* constructor() {
     super();
     this.state = {
       idDominio: [],
@@ -93,22 +111,26 @@ class Categoria1 extends Component {
 
     };
     this.handleChange = this.handleChange.bind(this);
-  }
+  }*/
 
 
 
-  fetchCategorias() {
+
+
+
+  const  fetchCategorias = () => {
     fetch('http://localhost:3000/api/categoria/listar/5e27327a91f09e071c85810d/')
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        this.setState({ categorias: data });
+        //this.setState({ categorias: data });
+        setCategorias(data);
         //console.log(this.state.categorias+ " Categorias");
         console.log(data)
       });
   }
 
-  getSelectStyles(name, personName, theme) {
+  const getSelectStyles = (name, personName, theme) => {
     return {
       fontWeight:
         personName.indexOf(name) === -1
@@ -117,31 +139,42 @@ class Categoria1 extends Component {
     };
   }
 
-  fetchDominios() {
+  const fetchDominios = () => {
     fetch('/api/dominio/listar3')
       .then(res => res.json())
       .then(data => {
         console.log(data + "Dominios");
-        this.setState({ dominios: data });
-        console.log(this.state.dominios + "Dominios");
+        setDominios(data);
+        console.log(dominios);
       })
 
   }
 
 
 
-  componentDidMount() {
+ /* componentDidMount() {
     console.log('componente fue montado');
     this.fetchCategorias();
     this.fetchDominios();
-  }
+    
+  }*/
 
 
+  useEffect(() => {
+    console.log('componente fue montado');
+    fetchCategorias();
+    fetchDominios();  
+  })
 
-  handleChange(event , idCategoria, idDominio, idDimension, idPregunta) {
+  
+  const handleChange = (event , idCategoria, idDominio, idDimension, idPregunta) => {
+    debugger;
+
+    
     const answer = event.target.value;
 
-    const answersplit = answer.split('/')
+    const answersplit = answer.split('/');
+
 
     const respuesta = {
       idCategoria:idCategoria._id,
@@ -168,15 +201,18 @@ class Categoria1 extends Component {
     localStorage.setItem('respuestas', JSON.stringify(respuestasLS))
   console.log(event.target.name);
    const { name, value } = event.target;
-   this.setState({
+   /*this.setState({
       [idPregunta]: answer
       
-    }); //cambiar el estado de una app de react
+    }); */
+    
+    setIdPregunta(answer)
+    //cambiar el estado de una app de react
 
   
   }
 
-  obtenervaloradio(pregunta) {
+  const obtenervaloradio = (pregunta) => {
     debugger;
     const {_id } = pregunta;
     let respuestasLS = JSON.parse(localStorage.getItem('respuestas'));
@@ -198,54 +234,65 @@ class Categoria1 extends Component {
   }
 
 
-  render() {
+
+    //alert(JSON.stringify(this.props) + 'test')
+    
 
     //const {children} = this.props;
     const message = "Hola";
     return (
+      <form >
       <ThemeProvider theme={theme}>
+    
         <div className="div-encuesta">
           <h1 className='dn-id'><Typography>Categorias</Typography></h1>
           {
-            this.state.categorias.map(categoria => {
-              localStorage.setItem('categoria ' + categoria._id, JSON.stringify(categoria._id))
+            
+          categorias.map(categoria => {
+              {/*localStorage.setItem('categoria ' + categoria._id, JSON.stringify(categoria._id))*/}
               return (
 
                 <div key={categoria._id}>
                   <section className="section-categoria"><Typography variant="h6">{categoria.nombreCategoria}</Typography> </section>
                   {/*JSON.stringify(categoria.idDominio.map(dominios => dominios.nombreDominio).join("/")).replace(/['"]+/g, '')*/} <br></br>
-
                   {categoria.idDominio.map(dominio => {
-                    localStorage.setItem('dominio ' + dominio._id, JSON.stringify(dominio._id))
-
+                    {/*localStorage.setItem('dominio ' + dominio._id, JSON.stringify(dominio._id))*/}
                     return (
                       <div key={dominio._id}>
                         <div className="section-dominio"> <div className='dn-id'> Dominio {dominio._id} </div> <Typography variant="h6">{dominio.nombreDominio} </Typography></div>
                         {
                           dominio.idDimension.map(dimension => {
-                            localStorage.setItem('dimension ' + dimension._id, JSON.stringify(dimension._id))
+                            {/*localStorage.setItem('dimension ' + dimension._id, JSON.stringify(dimension._id))*/}
 
                             return (
                               <div key={dimension._id}>
                                 <div className="section-dimension"> <div className="dn-id">Dimension  {dimension._id}</div> <Typography>{dimension.nombreDimension}</Typography></div>
                                 {
-                                  dimension.idPreguntas.map(pregunta => {
+                                dimension.idPreguntas.map(pregunta => {
+                                    localStorage.setItem('preguntas ' + pregunta._id, JSON.stringify(pregunta._id))
+                                    let respuestasLS = JSON.parse(localStorage.getItem('respuestas')) || [];
+                                    //alert(JSON.stringify(respuestasLS.length))
+
+                                   
+
                                     return (
                                       <div className="section-preguntas" key={pregunta._id}>
-                                        <div className="dn-id">Pregunta {pregunta._id} </div><Typography variant="h6"> {pregunta.nombrePregunta}: </Typography>
+                
+                                        <div className="dn-id">Pregunta {pregunta._id} </div><Typography variant="h6"> {pregunta.nombrePregunta}:</Typography>
                                         <FormLabel component="legend">Respuestas</FormLabel>
 
                                         <RadioGroup
-                                          defaultValue={this.obtenervaloradio(pregunta, categoria, dominio, dimension)}
-                                          onChange={(event) => this.handleChange(event, categoria, dominio, dimension, pregunta)} aria-label={pregunta._id} name="customized-radios">
+                                          defaultValue={obtenervaloradio(pregunta, categoria, dominio, dimension)}
+                                          onChange={(event) => handleChange(event, categoria, dominio, dimension, pregunta)} aria-label={pregunta._id} name="customized-radios">
                                           {
 
                                             pregunta.idRespuestas.map(respuesta => {
 
+                          
                                               localStorage.setItem(respuesta._id + '/' + pregunta._id + '/' + respuesta.valorRespuesta, JSON.stringify(respuesta._id))
                                               return (
                                                 <div key={respuesta._id}>
-                                                  <FormControlLabel  value={respuesta._id + '/' + respuesta.valorRespuesta} control={<StyledRadio />} label={respuesta.nombreRespuesta} />
+                                                  <FormControlLabel value={respuesta._id + '/' + respuesta.valorRespuesta} control={<StyledRadio />} label={respuesta.nombreRespuesta} />
 
                                                 </div>
                                               )
@@ -274,9 +321,12 @@ class Categoria1 extends Component {
 
           }
         </div>
+
       </ThemeProvider>
+      </form>
+ 
     )
-  }
+  
 }
 
 export default Categoria1;
