@@ -57,6 +57,9 @@
         "xlsx-to-json-lc": "^0.5.0",
         "yargs": "^14.2.0"
     },
+    "engines": {
+        "node": "12.x"
+    },
     "devDependencies": {
         "nodemon": "^1.19.4"
     }
