@@ -98,7 +98,8 @@ class Categoria2 extends Component {
 
 
   fetchCategorias() {
-    fetch('http://localhost:3000/api/categoria/listar/5e2732ac91f09e071c85810e/')
+    const categoriasurl = process.env.REACT_APP_API_CAT;
+    fetch(categoriasurl + '5e2732ac91f09e071c85810e/')
       .then(res => res.json())
       .then(data => {
         console.log(data);

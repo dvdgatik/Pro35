@@ -119,7 +119,8 @@ function Categoria1({parentCallback})
 
 
   const  fetchCategorias = () => {
-    fetch('http://localhost:3000/api/categoria/listar/5e27327a91f09e071c85810d/')
+    const categoriasurl = process.env.REACT_APP_API_CAT;
+    fetch(categoriasurl + '5e27327a91f09e071c85810d/')
       .then(res => res.json())
       .then(data => {
         console.log(data);
