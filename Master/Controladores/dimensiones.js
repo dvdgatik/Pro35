@@ -11,6 +11,7 @@ var controller = { //Inicio Del Controlador
         const dimension = new Dimension();
         var params = req.body;
         let fechaMX = moment(fecha).tz("America/Mexico_City");
+        dimension.numGuia = params.numGuia;
         dimension.nombreDimension = params.nombreDimension;
         dimension.idPreguntas = params.idPreguntas;
         console.log(params);

@@ -8,4 +8,5 @@ var router = express.Router();
 // Rutas útiles
 router.post('/encuestaC/guardar/',   EncuestasCController.guardar); 
 router.get('/encuestaC/listar/:nombre',   EncuestasCController.listar); 
+router.get('/encuestaC/listarT/',   EncuestasCController.listarT); 
 module.exports = router;

@@ -9,6 +9,7 @@ var controller = { //Inicio Del Controlador
         const pregunta = new Pregunta();
         var params = req.body;
         let fechaMX = moment(fecha).tz("America/Mexico_City");
+        pregunta.numGuia = params.numGuia;
         pregunta.nombrePregunta = params.nombrePregunta;
         pregunta.numeroPregunta = params.numeroPregunta;
         pregunta.idRespuestas = params.idRespuestas;

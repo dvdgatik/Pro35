@@ -12,4 +12,5 @@ router.get('/area/listarA/',   AreasController.listarAA);
 router.get('/area/listarI/',   AreasController.listarAI); 
 router.get('/area/buscar/:buscar?',   AreasController.buscar);
 router.put('/area/desactivar/:id',   AreasController.desactivar); 
+router.put('/area/modificar/:id',   AreasController.modificar); 
 module.exports = router;

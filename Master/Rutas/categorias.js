@@ -12,3 +12,4 @@ router.get('/categoria/listarT/',   CategoriasController.listarT);
 router.get('/categoria/listar2/:nombre',   CategoriasController.listar2); 
 module.exports = router;
  
+
