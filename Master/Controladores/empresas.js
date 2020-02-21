@@ -25,16 +25,16 @@ var controller = { //Inicio Del Controlador
                     var val_empresa_rfc = !validator.isEmpty(params.empresaRFC);
 
                     //VALIDACION DE DATOS DE CENTRO DE TRABAJO
-                    var val_centro_nombre = !validator.isEmpty(params.centroNombre);
-                    var val_centro_telefono = !validator.isEmpty(params.centroTelefono);
-                    var val_centro_calle = !validator.isEmpty(params.centroCalle);
-                    var val_centro_colonia = !validator.isEmpty(params.centroColonia);
-                    var val_centro_cp = !validator.isEmpty(params.centroCP);
+                    //var val_centro_nombre = !validator.isEmpty(params.centroNombre);
+                    //var val_centro_telefono = !validator.isEmpty(params.centroTelefono);
+                    //var val_centro_calle = !validator.isEmpty(params.centroCalle);
+                    //var val_centro_colonia = !validator.isEmpty(params.centroColonia);
+                    //var val_centro_cp = !validator.isEmpty(params.centroCP);
                     
                 }catch(err){
                     return res.status(500).send({
                         status: 'error',
-                        message: 'Faltan datos por enviar !!!'
+                        message: 'Faltan datos por enviarse !!!'
                     });
                 }
         
