@@ -13,3 +13,4 @@ router.get('/categoria/listar2/',   CategoriasController.listar2);
 
 module.exports = router;
  
+

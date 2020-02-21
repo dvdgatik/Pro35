@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var EncuestasSchema = Schema({
+    
+    numGuia: String,
     nombreEncuesta: String,
     timestamp: Date,
     idCategorias:  [{ type: Schema.ObjectId, ref: "Categorias" }],

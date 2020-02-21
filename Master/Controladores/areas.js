@@ -114,7 +114,53 @@ var controller = { //Inicio Del Controlador
             });
     },
 
+    modificar: async(req, res) => {
 
+        var area = req.params.id;
+        var params = req.body;
+
+        // Validar datos
+        try{
+            var validarNombre = !validator.isEmpty(params.nombre);
+            var validarteDescripcion = !validator.isEmpty(params.descripcion);
+        }catch(err){
+            return res.status(200).send({
+                status: 'error',
+                message: 'Faltan datos por enviar !!!'
+            }); 
+        }
+
+        if(validarNombre && validarteDescripcion){
+             // Find and update
+             Area.findOneAndUpdate({_id: area}, params, {new:true}, (err, areaModificada) => {
+                if(err){
+                    return res.status(500).send({
+                        status: 'error',
+                        message: 'Error al actualizar !!!'
+                    });
+                }
+
+                if(!areaModificada){
+                    return res.status(404).send({
+                        status: 'error',
+                        message: 'No existe el articulo !!!'
+                    });
+                }
+
+                return res.status(200).send({
+                    status: 'success',
+                    article: areaModificada
+                });
+             });
+        }else{
+             // Devolver respuesta
+            return res.status(200).send({
+                status: 'error',
+                message: 'La validación no es correcta !!!'
+            });
+        }
+       
+    },
 
 
 

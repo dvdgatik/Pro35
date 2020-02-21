@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var PreguntasSchema = Schema({
+var PreguntasSchema = Schema({    
+    numGuia: String,
     nombrePregunta: String,  
     timestamp: Date,
     numeroPregunta: String,

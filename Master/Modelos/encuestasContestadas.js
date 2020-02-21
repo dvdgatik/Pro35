@@ -14,8 +14,9 @@ var EncuestaCSchema = Schema({
     idCategoria:  { type: Schema.ObjectId, ref: "Categorias" },
     idDominio:  { type: Schema.ObjectId, ref: "Dominios" },
     idDimension:  { type: Schema.ObjectId, ref: "Dimensiones" },
-    respuestasc : [],
+    respuestasC : [],
     valorRespuesta: Number,
+    nombreRespuesta: String,
     }, { versionKey: false });
 
 module.exports = mongoose.model('Contestada', EncuestaCSchema);

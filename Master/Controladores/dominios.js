@@ -11,6 +11,7 @@ var controller = { //Inicio Del Controlador
         const dominio = new Dominio();
         var params = req.body;
         let fechaMX = moment(fecha).tz("America/Mexico_City");
+        dominio.numGuia = params.numGuia;
         dominio.nombreDominio = params.nombreDominio;
         dominio.idDimension = params.idDimension;
         var fecha = new Date();     

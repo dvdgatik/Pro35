@@ -10,6 +10,7 @@ var controller = { //Inicio Del Controlador
         const categoria = new Categoria();
         var params = req.body;
         let fechaMX = moment(fecha).tz("America/Mexico_City");
+        categoria.numGuia = params.numGuia;
         categoria.nombreCategoria = params.nombreCategoria;
         categoria.idDominio = params.idDominio;
         var fecha = new Date();     
@@ -40,7 +41,7 @@ var controller = { //Inicio Del Controlador
 
     listar: async(req, res) => {
         let idCategoria = req.params.id;
-
+console.log(req.params);
         Categoria.findById({_id:idCategoria})
         .populate({ 
             path: 'idDominio',
@@ -69,6 +70,7 @@ var controller = { //Inicio Del Controlador
                     return res.status(500).send({});
                 }
                 if (!categorias || categorias.length <= 0) {}
+                console.log(categorias);
                 return res.status(200).send([categorias])
             });
 },
