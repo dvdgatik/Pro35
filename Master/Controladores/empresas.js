@@ -17,19 +17,19 @@ var controller = { //Inicio Del Controlador
 
                 try{
                     //VALIDACION DE DATOS DE EMPRESA
-                    var val_empresa_razonSocial = !validator.isEmpty(params.empresaRazonSocial);
-                    var val_empresa_alias = !validator.isEmpty(params.empresaAlias);
-                    var val_empresa_calle = !validator.isEmpty(params.empresaCalle);
-                    var val_empresa_colonia = !validator.isEmpty(params.empresaColonia);
-                    var val_empresa_cp = !validator.isEmpty(params.empresaCP);
-                    var val_empresa_rfc = !validator.isEmpty(params.empresaRFC);
+                    var val_empresa_razonSocial = params.empresaRazonSocial;
+                    var val_empresa_alias = params.empresaAlias;
+                    var val_empresa_calle = params.empresaCalle;
+                    var val_empresa_colonia = params.empresaColonia;
+                    var val_empresa_cp = params.empresaCP;
+                    var val_empresa_rfc = params.empresaRFC;
 
                     //VALIDACION DE DATOS DE CENTRO DE TRABAJO
-                    //var val_centro_nombre = !validator.isEmpty(params.centroNombre);
-                    //var val_centro_telefono = !validator.isEmpty(params.centroTelefono);
-                    //var val_centro_calle = !validator.isEmpty(params.centroCalle);
-                    //var val_centro_colonia = !validator.isEmpty(params.centroColonia);
-                    //var val_centro_cp = !validator.isEmpty(params.centroCP);
+                    var val_centro_nombre = !validator.isEmpty(params.centroNombre);
+                    var val_centro_telefono = !validator.isEmpty(params.centroTelefono);
+                    var val_centro_calle = !validator.isEmpty(params.centroCalle);
+                    var val_centro_colonia = !validator.isEmpty(params.centroColonia);
+                    var val_centro_cp = !validator.isEmpty(params.centroCP);
                     
                 }catch(err){
                     return res.status(500).send({
